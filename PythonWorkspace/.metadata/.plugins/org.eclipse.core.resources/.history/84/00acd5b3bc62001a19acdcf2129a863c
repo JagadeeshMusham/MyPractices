@@ -1,0 +1,8 @@
+print("Hi")
+
+ar = ["1", "2", "3"]
+
+for a in ar:
+	print(a)
+
+print(ar.count())

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: jmusham
+Build-Jdk: 17.0.7
+Implementation-Title: first_spring_boot
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.spring_boot
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/first_spring_boot
+Created-By: Maven Integration for Eclipse
+

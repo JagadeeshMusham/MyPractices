@@ -1,0 +1,7 @@
+spring.datasource.url=jdbc:postgresql://127.0.0.1:5432/userinfo
+spring.datasource.username=postgres
+spring.datasource.password=centina
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+logging.path = /var/tmp/
+logging.file = mylog.log

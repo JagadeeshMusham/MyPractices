@@ -1,0 +1,207 @@
+#!/usr/bin/env python
+import findspark
+findspark.init()
+from pyspark.ml.feature import FeatureHasher
+
+from pyspark.ml.clustering import KMeans
+from pyspark.ml.clustering import KMeansModel
+
+from pyspark.sql import SparkSession
+
+from pyspark.sql.functions import date_format
+from pyspark.sql.functions import split
+
+import datetime
+import mysql.connector
+import pickle
+import math
+
+#Create the SparkSession 
+spark = SparkSession.builder.master("spark://192.168.1.131:7077").appName('KMeansModellingAndPrediction').getOrCreate()
+
+#Load list of nodes.
+nodes_file = open("/Users/jmusham/Downloads/Anomaly Detection/Prototype/input_data/nodes_demo.txt", "r")
+nodes = nodes_file.read().splitlines()
+nodes_file.close()
+print("\nAvailable node list: \n")
+print nodes
+#count = nodes.count()
+print("Count is: ")
+#print(str(count))
+print("\n\n\n")
+
+#nodes = ["MPLSMNCD02M"]
+f = open("./SDN_stats_using_percent_demo.csv", "w")
+f.write("Total Alarms,Labeled Alarms,Anomalous Alarms,True Positive\'s,False Positive\'s,False Negative\'s,Anomaly(%),Normal alarms(%),Largest Cluster Size,Smallest Cluster Size,Largest Anomalous Cluster Size,Smallest Anomalous Cluster Size")
+for node in nodes:
+   node = node.replace(" ","")
+   #Load training data from csv
+   start = datetime.datetime.now()
+   print ("START Loading Training data from CSV @ " + start.strftime("%Y-%m-%d %H:%M:%S"))
+   print("Loading training data for node: " + str(node))
+   df = spark.read.csv("/Users/jmusham/Downloads/Anomaly Detection/Prototype/input_data/csv/" + node.replace(" ","") + "_alarms_train.csv",inferSchema=True,header=True)
+   print("Loaded training data for node: " + str(node))
+   print("\n\nExecuted Succesfully\n\n")
+   total_alarms = df.count()
+   print("Loaded " + str( total_alarms ) + " rows.")
+   df.printSchema()
+   df.show()
+   stop = datetime.datetime.now()
+   print("END Loading Training data from CSV @ " + stop.strftime("%Y-%m-%d %H:%M:%S") + ", Total alarms loaded: " + str(df.count()))
+   print("TIME TAKEN: " + str( ( stop - start ).total_seconds() ) + " seconds" )
+ 
+   #Load labeled data from CSV file.
+   start = datetime.datetime.now()
+   print ("START Loading Labeled data from CSV @ " + start.strftime("%Y-%m-%d %H:%M:%S"))
+   labeled_df = spark.read.csv("/Users/jmusham/Downloads/Anomaly Detection/Prototype/input_data/csv/" + node.replace(" ","") + "_alarms_labeled.csv",inferSchema=True,header=True)
+   total_labeled_alarms = labeled_df.count()
+   print("Loaded " + str( total_labeled_alarms ) + " rows.")
+   labeled_df.printSchema()
+   labeled_df.show()
+   stop = datetime.datetime.now()
+   print("END Loading Training data from CSV @ " + stop.strftime("%Y-%m-%d %H:%M:%S") + ", Total alarms loaded: " + str(labeled_df.count()))
+   print("TIME TAKEN: " + str( ( stop - start ).total_seconds() ) + " seconds" )
+
+   
+   #Load the model
+   loaded_model = KMeansModel.load("/Users/jmusham/Downloads/Anomaly Detection/Prototype/models/" + node.replace(" ","") + "_Model_MPLS")
+   loaded_hasher = FeatureHasher.load("/Users/jmusham/Downloads/Anomaly Detection/Prototype/models/" + node.replace(" ", "") + "_Hasher_MPLS")
+
+
+   #Pre-processing for test data
+   final_test_data = loaded_hasher.transform(labeled_df)
+
+   #Predcitions for test data
+   predictions = loaded_model.transform(final_test_data)
+   print "Predictions"
+   #predictions.show(100)
+   predicted_cluster_count_df = predictions.groupBy('prediction').count().orderBy('count',ascending=False)
+   predicted_cluster_count_df.show(23)
+   predicted_cluster_count_df.groupBy('prediction').sum()
+   #predictions.groupBy('prediction').count().filter(test_predictions['count']>1).sum().show()
+   #predictions.withColumn
+   #predictions.groupBy('prediction').sum().show(23)
+   predictions.orderBy('prediction', ascending=False).show()
+   predictions.filter(predictions['id']== 1248760880).show()
+   predicted_clusters = [int(row.prediction) for row in predictions.select("prediction").distinct().collect()]
+   print "Clusters under which alarms received on this node fall: " + str( predicted_clusters )
+
+   with open("/Users/jmusham/Downloads/Anomaly Detection/Prototype/models/" + node.replace(" ","") + "_Model_Summary.txt", 'r') as summary_file:
+      cluster_sizes = pickle.load(summary_file)
+   print "Cluster sizes from this node's model - " + str( cluster_sizes )
+   
+   max_cluster_size = max(cluster_sizes)
+   min_cluster_size = min(cluster_sizes)
+   print "MAX cluster size: " + str(max_cluster_size)
+   print "MIN cluster size: " + str(min_cluster_size)
+   print len(cluster_sizes)
+
+   total_anomalous_alarms = 0
+   true_positives = 0
+   false_positives = 0
+   false_negatives = 0
+   max_anomalous_cluster_size = 0
+   min_anomalous_cluster_size = max_cluster_size
+   i = 0
+   while i < len(cluster_sizes):
+      size = cluster_sizes[i]
+      print "Cluster " + str( i ) + " size is - " + str( size )
+      if size == 0:
+         i = i + 1
+         continue
+      percentage = '{0:.2f}'.format((float(size) / float(max_cluster_size) * 100))
+      print "Percentage of this size against biggest cluster - " + str( percentage )
+      #print type(percentage)
+      print round(float(percentage))
+      print int(round(float(percentage)))
+      #CASE 1: Anoumolus
+      #if int(math.floor(float(percentage))) <= 5:
+      if int(round(float(percentage))) <= 5:
+         print "This is ANOMOLUS cluster, cluster number - " + str( i )
+	 total_anomalous_alarms = total_anomalous_alarms + size
+         if i in predicted_clusters:
+            true_positive_count = predicted_cluster_count_df.filter(predicted_cluster_count_df['prediction'] == i).select('count').collect() 
+            print true_positive_count
+            c = int(true_positive_count[0]["count"])
+            #s = true_positive_count['count'].collect()
+            true_positives = true_positives + c
+         #else:
+         #   false_positives = false_positives + size
+	 if size > max_anomalous_cluster_size:
+            max_anomalous_cluster_size = size
+         if size < min_anomalous_cluster_size:
+            min_anomalous_cluster_size = size
+         anomalies = predictions.filter(predictions['prediction'] == i )
+         print "ANOMALIES:"
+         anomalies.show()
+         alarm_seq_numbers = [str(row.id) for row in anomalies.select("id").distinct().collect()]
+         #mvv_count = [int(row.count) for row in mvv_list.collect()]
+         print "Alarms seq numbers predicted as anomalies: " + str( alarm_seq_numbers )
+         print(','.join(alarm_seq_numbers))
+         alarm_seq_numbers = ','.join(alarm_seq_numbers)
+         #alarm_seq_numbers1 = anomalies.select("id").rdd.flatMap(lambda x: x).collect()
+         #print alarm_seq_numbers1
+         update_anomalies_query = "update fault_event set caf_anomalyscore = {} where networkElementName = '{}' and sequenceNumber IN ({})".format( 100.00, node, alarm_seq_numbers )
+         #update_active_alarms = "update fault_active_alarms set caf_anomalyscore = {} where sequenceNumber IN ({})".format( 100.00, alarm_seq_numbers )
+         print "ANOMALY UPDATE QUERY: " + str( update_anomalies_query )
+
+         #Update the table by using python
+#         mydb = mysql.connector.connect(
+#                 host="172.31.8.23",
+#                 user="centina",
+#                 passwd="centina",
+#                 database="fm")
+
+#         try:
+#            mycursor = mydb.cursor()
+#            mycursor.execute( update_anomalies_query )
+#            mydb.commit()
+#            print( str( mycursor.rowcount ) + " record(s) affected" )
+#            '''mycursor = mydb.cursor()
+#            mycursor.execute( update_active_alarms )
+#            mydb.commit()
+#            print( str( mycursor.rowcount ) + " record(s) affected" )'''
+
+#         except Exception as exception:
+#            print(exception)
+
+#         finally:
+#            mycursor.close()
+
+#         print("UPDATED ANOMALIES")
+      #CASE 2: Normal
+      else:
+         print "NORMAL"
+         #BELOW case is ANOMOLOUS but predicted as NORMAL
+         if i in predicted_clusters:
+            false_negative_count = predicted_cluster_count_df.filter(predicted_cluster_count_df['prediction'] == i).select('count').collect()
+	    print false_negative_count
+            c = int(false_negative_count[0]["count"])
+            false_negatives = false_negatives + c
+      i = i + 1
+
+
+   print "MAX Anomalous cluster size: " + str( max_anomalous_cluster_size )
+   print "MIN Anomalous cluster size: " + str( min_anomalous_cluster_size )
+   print "TOTAL Anomolous alarms predicted: " + str( total_anomalous_alarms )
+
+   anomaly_percentage = '{0:.2f}'.format((float(total_anomalous_alarms) / float(total_alarms) * 100))
+   normal_alarms_percentage = '{0:.2f}'.format((float(total_alarms - total_anomalous_alarms) / float(total_alarms) * 100))
+
+   print "TOTAL Alarms: " + str(total_alarms)
+   print "ANOMOLOUS alarms: " + str(total_anomalous_alarms)
+   print "TRUE POSITIVE's: " + str(true_positives)
+   print "FALSE_POSITIVE's: " + str(total_anomalous_alarms - true_positives)
+   print "FALSE NEGATIVE's: " + str(false_negatives)
+   print "Anomaly(%): " + str(anomaly_percentage)
+   print "Normal(%): " + str(normal_alarms_percentage)
+   print "Largest cluster size: " + str(max_cluster_size)
+   print "Smallest cluster size: " + str(min_cluster_size)
+   print "Largest Anomalous cluster size: " + str(max_anomalous_cluster_size)
+   print "Smallest Anomalous cluster size: " + str(min_anomalous_cluster_size)
+   stats = ""
+   stats = str(total_alarms) + "," + str(total_labeled_alarms) + "," + str(total_anomalous_alarms) + "," + str(true_positives) + "," + str(total_anomalous_alarms-true_positives) + "," + str(false_negatives) + "," + str(anomaly_percentage) + "," + str(normal_alarms_percentage) + "," + str(max_cluster_size) + "," + str(min_cluster_size) + "," + str(max_anomalous_cluster_size) + "," + str(min_anomalous_cluster_size) + "\n"
+   f.write(stats)
+
+f.close()
+

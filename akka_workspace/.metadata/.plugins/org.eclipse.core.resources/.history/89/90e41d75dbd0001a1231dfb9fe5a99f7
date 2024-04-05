@@ -1,0 +1,5 @@
+package com.ciena.secureapp;
+
+public class ApplicationSecurityConfig {
+
+}

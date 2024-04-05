@@ -1,0 +1,9 @@
+package design_pattern.state;
+
+public class StateDemo {
+	Context context = new Context();
+	
+	design_pattern.state.StartState ss = new design_pattern.state.StartState();
+	ss.doAction(context);
+	
+}

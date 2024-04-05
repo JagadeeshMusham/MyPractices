@@ -1,0 +1,17 @@
+-- VERSION_5
+-- START DISKCACHE_2
+/Users/jmusham/eclipse-workspace/PythonWorkspace/.metadata/.plugins/org.eclipse.core.resources/.projects/TestPyDev/com.python.pydev.analysis/v2_indexcache
+PyTest|1583838017000000000|/Users/jmusham/eclipse-workspace/PythonWorkspace/TestPyDev/PyTest.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+1=/Users/jmusham/eclipse-workspace/PythonWorkspace/TestPyDev/PyTest.py
+2=PyTest
+-- END DICTIONARY
+-- START TREE 1
+1
+ar|1|ar!1^3#1*19@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

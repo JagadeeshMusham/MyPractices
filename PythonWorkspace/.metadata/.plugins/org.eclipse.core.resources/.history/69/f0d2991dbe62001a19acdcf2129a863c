@@ -1,0 +1,8 @@
+print("Hi\n")
+
+ar = ["1", "2", "3", "40"]
+
+for a in ar:
+	print(a)
+
+print(str(len(ar)))

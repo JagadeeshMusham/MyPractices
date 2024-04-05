@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TestPyDev</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.python.pydev.PyDevBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.python.pydev.pythonNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>kmeans_prediction_and_stats.py</name>
+			<type>1</type>
+			<location>/Users/jmusham/Downloads/Anomaly Detection/Prototype/kmeans_prediction_and_stats.py</location>
+		</link>
+	</linkedResources>
+</projectDescription>
