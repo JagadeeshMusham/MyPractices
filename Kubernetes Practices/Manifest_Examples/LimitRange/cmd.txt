@@ -1,0 +1,24 @@
+>kubectl get limitrange
+>kubectl apply -f limitrange.yml
+>kubectl get limitrange
+>kubectl describe limitrange my-limit-range
+>kubectl delete -f limitrange.yml
+
+
+-------------------------------------------------------
+
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/limitrange (onyx-etching-428905-d1)$ kubectl apply -f limitrange.yml 
+limitrange/my-limit-range created
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/limitrange (onyx-etching-428905-d1)$ kubectl get limitrange
+NAME             CREATED AT
+my-limit-range   2024-07-15T14:41:52Z
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/limitrange (onyx-etching-428905-d1)$ kubectl describe limitrange my-limit-range
+Name:       my-limit-range
+Namespace:  default
+Type        Resource  Min    Max   Default Request  Default Limit  Max Limit/Request Ratio
+----        --------  ---    ---   ---------------  -------------  -----------------------
+Container   cpu       50m    500m  100m             200m           -
+Container   memory    100Mi  1Gi   200Mi            500Mi          -
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/limitrange (onyx-etching-428905-d1)$ kubectl delete -f limitrange.yml 
+limitrange "my-limit-range" deleted
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/limitrange (onyx-etching-428905-d1)$ 

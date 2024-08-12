@@ -1,0 +1,14 @@
+>kubectl get hpa
+>kubectl get pods
+>kubectl get deploy
+
+>kubectl apply -f deploy.yml
+>kubectl get pods
+>kubectl apply -f hpa.yml
+
+>kubectl get hpa
+>kubectl get pods
+>kubectl get deploy
+
+>kubectl delete -f deploy.yml
+>kubectl delete -f hpa.yml

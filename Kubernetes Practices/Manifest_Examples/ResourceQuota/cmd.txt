@@ -1,0 +1,26 @@
+>kubectl get nodes -o wide
+>kubectl create ns my-namespace
+>kubectl apply -f resourcequota.yml -n my-namespace
+>kubectl get resourcequota -n my-namespace
+>kubectl delete -f resourcequota.yml -n my-namespace
+>kubectl get resourcequota -n my-namespace
+
+---------------------------------------------------------------------------------------------
+
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl get nodes -o wide
+NAME                                       STATUS   ROLES    AGE    VERSION               INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+gke-cluster-1-default-pool-5d1ef109-qp57   Ready    <none>   121m   v1.29.5-gke.1091002   10.128.0.11   34.173.12.162   Container-Optimized OS from Google   6.1.85+          containerd://1.7.15
+gke-cluster-1-default-pool-5d1ef109-sx1b   Ready    <none>   170m   v1.29.5-gke.1091002   10.128.0.8    34.30.95.42     Container-Optimized OS from Google   6.1.85+          containerd://1.7.15
+gke-cluster-1-default-pool-5d1ef109-z1sh   Ready    <none>   119m   v1.29.5-gke.1091002   10.128.0.12   34.170.48.151   Container-Optimized OS from Google   6.1.85+          containerd://1.7.15
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl create ns my-namespace
+namespace/my-namespace created
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl apply -f resourcequota.yml -n my-namespace
+resourcequota/my-resource-quota created
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl get resourcequota -n my-namespace
+NAME                AGE   REQUEST                   LIMIT
+my-resource-quota   30s   cpu: 0/2, memory: 0/4Gi   
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl delete -f resourcequota.yml -n my-namespace
+resourcequota "my-resource-quota" deleted
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ kubectl get resourcequota -n my-namespace
+No resources found in my-namespace namespace.
+jagadeeshmusham2@cloudshell:~/kubernetes__practices/manifest/resource_quota (onyx-etching-428905-d1)$ 
