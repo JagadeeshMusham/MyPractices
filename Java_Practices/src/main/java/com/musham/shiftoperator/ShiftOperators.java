@@ -1,4 +1,4 @@
-package general.shiftoperator;
+package com.musham.shiftoperator;
 
 public class ShiftOperators {
 	public static void main(String [] args) {

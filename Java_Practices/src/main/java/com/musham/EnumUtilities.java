@@ -1,4 +1,4 @@
-package general;
+package com.musham;
 
 public class EnumUtilities {
 	private enum Student {

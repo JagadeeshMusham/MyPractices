@@ -1,4 +1,4 @@
-package general;
+package com.musham;
 
 public class ShiftOperators {
 	public static void main(String [] args) {

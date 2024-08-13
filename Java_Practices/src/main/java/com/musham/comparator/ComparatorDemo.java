@@ -1,4 +1,4 @@
-package general.comparator;
+package com.musham.comparator;
 
 import java.util.Arrays;
 import java.util.Scanner;

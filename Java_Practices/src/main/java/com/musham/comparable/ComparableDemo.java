@@ -1,4 +1,4 @@
-package general.comparable;
+package com.musham.comparable;
 
 import java.util.ArrayList;
 import java.util.Collections;

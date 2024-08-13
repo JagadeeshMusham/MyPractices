@@ -1,4 +1,4 @@
-package general.innerclasses;
+package com.musham.innerclasses;
 
 public class InnerClasses {
 	public int x = 0;

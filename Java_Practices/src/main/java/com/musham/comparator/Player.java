@@ -1,4 +1,4 @@
-package general.comparator;
+package com.musham.comparator;
 
 public class Player implements Comparable<Player>{
 	String name;

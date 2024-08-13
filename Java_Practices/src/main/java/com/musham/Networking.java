@@ -1,4 +1,4 @@
-package general;
+package com.musham;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

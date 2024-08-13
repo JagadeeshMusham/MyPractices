@@ -1,4 +1,4 @@
-package general.equal_vs_hashcode;
+package com.musham.equal_vs_hashcode;
 
 import java.util.HashMap;
 import java.util.Map;

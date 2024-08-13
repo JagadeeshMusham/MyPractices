@@ -1,4 +1,4 @@
-package general.comparable;
+package com.musham.comparable;
 
 public class Student implements Comparable<Student> {
 	int rollno;

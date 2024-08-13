@@ -1,4 +1,4 @@
-package general.multithreading;
+package com.musham.multithreading;
 
 public class CountInteger {
 	private int count;

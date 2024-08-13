@@ -1,4 +1,4 @@
-package general.streams;
+package com.musham.streams_file;
 
 import java.util.Scanner;
 

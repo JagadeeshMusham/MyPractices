@@ -1,4 +1,4 @@
-package general.lambda_expression;
+package com.musham.lambda_expression;
 
 interface Lambda {
 	public void getLambda();

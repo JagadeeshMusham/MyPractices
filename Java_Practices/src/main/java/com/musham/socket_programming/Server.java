@@ -1,4 +1,4 @@
-package general.socket_programming;
+package com.musham.socket_programming;
 
 import java.io.InputStream;
 import java.io.OutputStream;

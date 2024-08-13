@@ -1,4 +1,4 @@
-package general.multithreading;
+package com.musham.multithreading;
 
 public class NewThreadWithRunnable implements Runnable {
 

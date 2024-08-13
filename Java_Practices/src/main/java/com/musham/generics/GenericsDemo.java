@@ -1,4 +1,4 @@
-package general.generics;
+package com.musham.generics;
 
 class Generics<T, U> {
 	private T t;

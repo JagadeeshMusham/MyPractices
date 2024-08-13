@@ -1,4 +1,4 @@
-package general.codility.format_mobile_number;
+package com.musham.codility.format_mobile_number;
 
 public class Solution {
 	private static String provideSolution(String s) {

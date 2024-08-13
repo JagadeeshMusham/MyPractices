@@ -1,4 +1,4 @@
-package general.generics;
+package com.musham.generics;
 
 import java.util.HashMap;
 import java.util.Map;

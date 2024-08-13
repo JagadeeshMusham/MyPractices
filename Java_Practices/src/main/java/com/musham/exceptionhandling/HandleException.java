@@ -1,4 +1,4 @@
-package general.exceptionhandling;
+package com.musham.exceptionhandling;
 
 public class HandleException {
 	private static void throwException() {

@@ -1,4 +1,4 @@
-package general;
+package com.musham;
 
 import java.io.FileReader;
 import java.io.FileWriter;

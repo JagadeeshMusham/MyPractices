@@ -1,4 +1,4 @@
-package general.strings;
+package com.musham.strings;
 
 public class SequenceCharacters {
 	public static void main(String[] args) {
