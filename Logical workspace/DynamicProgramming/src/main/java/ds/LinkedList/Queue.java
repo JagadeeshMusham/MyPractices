@@ -1,4 +1,4 @@
-package DynamicProgramming.src.main.java.ds.LinkedList;
+package ds.LinkedList;
 
 public class Queue {
     private Node first;

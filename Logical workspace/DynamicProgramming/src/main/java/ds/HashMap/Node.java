@@ -1,4 +1,4 @@
-package DynamicProgramming.src.main.java.ds.HashMap;
+package ds.HashMap;
 
 public class Node {
     private int value;

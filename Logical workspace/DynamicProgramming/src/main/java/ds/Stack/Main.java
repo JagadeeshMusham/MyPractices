@@ -1,4 +1,4 @@
-package DynamicProgramming.src.main.java.ds.Stack;
+package ds.Stack;
 
 import java.util.*;
 

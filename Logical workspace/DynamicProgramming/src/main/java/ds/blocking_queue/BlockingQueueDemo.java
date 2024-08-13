@@ -1,4 +1,4 @@
-package DynamicProgramming.src.main.java.ds.blocking_queue;
+package ds.blocking_queue;
 
 import java.util.Scanner;
 
