@@ -1,4 +1,4 @@
-package pramati.codility;
+package com.musham.InterviewQuestions.pramati.codility;
 
 public class MaxDiff {
 	private static int maxDiff(int a[]) {

@@ -1,4 +1,4 @@
-package org.senecaglobal;
+package com.musham.InterviewQuestions.senecaglobal;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;

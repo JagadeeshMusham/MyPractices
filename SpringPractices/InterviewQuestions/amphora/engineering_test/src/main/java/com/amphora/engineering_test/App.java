@@ -1,4 +1,4 @@
-package InterviewQuestions.amphora.engineering_test.src.main.java.com.amphora.engineering_test;
+package com.musham.InterviewQuestions.amphora.engineering_test.src.main.java.com.amphora.engineering_test;
 
 /**
  * @author Admin This is main class which is used to start the application

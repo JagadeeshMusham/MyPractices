@@ -1,4 +1,4 @@
-package pramati.codility;
+package com.musham.InterviewQuestions.pramati.codility;
 
 import java.io.IOException;
 

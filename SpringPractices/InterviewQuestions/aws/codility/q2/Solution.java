@@ -1,4 +1,4 @@
-package aws.codility.q2;
+package com.musham.InterviewQuestions.aws.codility.q2;
 
 import java.util.HashMap;
 import java.util.Map;

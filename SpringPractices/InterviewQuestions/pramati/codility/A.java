@@ -1,4 +1,4 @@
-package pramati.codility;
+package com.musham.InterviewQuestions.pramati.codility;
 
 public class A {
 	public static void main(String[] args) {

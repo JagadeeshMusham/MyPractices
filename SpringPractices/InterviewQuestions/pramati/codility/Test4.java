@@ -1,4 +1,4 @@
-package pramati.codility;
+package com.musham.InterviewQuestions.pramati.codility;
 
 public class Test4 {
 	class Inner {
