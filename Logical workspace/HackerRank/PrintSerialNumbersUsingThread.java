@@ -1,14 +1,14 @@
-package PrintSerialNumbersUsingThread.src.main.java.org.example;
+package HackerRank;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class PrintSerialNumbersUsingThread {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         System.out.printf("Hello and welcome!\n");
 
-        Main main  = new Main();
+        PrintSerialNumbersUsingThread main  = new PrintSerialNumbersUsingThread();
 
         MyThread mt1 = new MyThread(1, main);
         Thread t1 = new Thread(mt1);
@@ -39,9 +39,9 @@ public class Main {
 
 class MyThread implements Runnable {
     String name;
-    Main main;
+    PrintSerialNumbersUsingThread main;
 
-    public MyThread(int counter, Main main) {
+    public MyThread(int counter, PrintSerialNumbersUsingThread main) {
         name = "Thread_" + counter;
         this.main = main;
     }
