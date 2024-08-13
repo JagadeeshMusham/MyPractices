@@ -1,6 +1,7 @@
 package com.musham.stream;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 
 /**
@@ -27,5 +28,11 @@ public class _05MinMaxDemo {
 		
 		System.out.println("The Minimum value in the array is: " + min.get());
 		System.out.println("The Maximum value in the array is: " + max.get());
-	} 
+
+		min = iArray.stream().min(Comparator.naturalOrder());
+		max = iArray.stream().max(Comparator.naturalOrder());
+
+		System.out.println("\nThe Minimum value in the array is: " + min.get());
+		System.out.println("The Maximum value in the array is: " + max.get());
+	}
 }
