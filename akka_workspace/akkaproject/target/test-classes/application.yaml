@@ -1,7 +1,0 @@
-application:
-  name: akkaproject
-  package: com.ciena.akkaproject
-spring:
-  application:
-    name: ${application.name}
-
