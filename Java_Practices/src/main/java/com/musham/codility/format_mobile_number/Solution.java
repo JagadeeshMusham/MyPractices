@@ -7,7 +7,7 @@ public class Solution {
 
 		char[] sArray = s.toCharArray();
 
-		if (sArray[1] == ') {
+		if (sArray[1] == ' ') {
 			
 		}
 		StringBuilder sbr = new StringBuilder();

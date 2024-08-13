@@ -1,9 +1,7 @@
-package general.recursion;
+package com.musham.recursion;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ds.list.SingleLinkedList;
 
 public class RecursionDemo {
 

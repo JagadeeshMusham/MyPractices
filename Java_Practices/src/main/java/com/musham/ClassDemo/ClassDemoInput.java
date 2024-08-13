@@ -1,4 +1,4 @@
-package ClassDemo;
+package com.musham.ClassDemo;
 
 public class ClassDemoInput {
 

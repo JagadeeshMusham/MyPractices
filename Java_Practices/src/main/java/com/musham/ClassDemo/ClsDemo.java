@@ -1,4 +1,4 @@
-package ClassDemo;
+package com.musham.ClassDemo;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

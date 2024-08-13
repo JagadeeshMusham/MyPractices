@@ -15,9 +15,9 @@ public class CollectionsDemo {
 	
 	Map<String, String> map = new HashMap<>();
 	
-	private void test(Map<> hashMap) {
-		
-	}
+//	private void test(Map<T> hashMap) {
+//
+//	}
 
 	public static void main() {
 		System.out.println();
