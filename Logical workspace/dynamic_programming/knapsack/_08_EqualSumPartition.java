@@ -7,15 +7,14 @@ public class _08_EqualSumPartition {
     public static void main(String[] args) {
         int[] input = {5, 1, 11, 5, 1, 1, 2, 3, 1};
         System.out.printf("Can we make equal sum partition from give input: %b - %b",
-                canEqualSumPartition(input, 0, true),
-                canEqualSumPartition(input, 0, false));
+                canEqualSumPartition(input, true),
+                canEqualSumPartition(input, false));
     }
 
-    private static boolean canEqualSumPartition(int[] input, int index, boolean bRecursive) {
+    private static boolean canEqualSumPartition(int[] input, boolean bRecursive) {
         int sum = 0;
 
-        for (int iterator = 0; iterator < input.length; iterator++) {
-            int inputValue = input[iterator];
+        for (int inputValue : input) {
             sum += inputValue;
         }
 
@@ -65,6 +64,7 @@ public class _08_EqualSumPartition {
             }
         }
 
+        // Will enable this code only at required
         if (false) {
             for (row = 0; row <= 4; ++row) {
                 for (col = 0; col <= 11; ++col) {
