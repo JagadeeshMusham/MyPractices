@@ -59,23 +59,7 @@ public class _14_RodCutting {
 
         return dp[roadLen];
     }
-
-    private int test(int[] prices, int rodLen) {
-        if (rodLen == 0 || prices.length == 0) {
-            return 0;
-        }
-
-        int maxRevenue = 0;
-
-        for (int curRoadLen = 0; curRoadLen <= rodLen; curRoadLen++) {
-            if (curRoadLen < prices.length) {
-                int curRevenue = prices[curRoadLen] + test(prices, rodLen - (curRoadLen + 1));
-                maxRevenue = Math.max(maxRevenue, curRevenue);
-            }
-        }
-        return maxRevenue;
-    }
-
+    
     //Todo J, this is my own way
     public static int getRevenueWithRec(int[] prices, int rodLength) {
         int maxRevenue = 0;
