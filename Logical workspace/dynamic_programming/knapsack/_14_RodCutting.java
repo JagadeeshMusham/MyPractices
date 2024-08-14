@@ -59,8 +59,8 @@ public class _14_RodCutting {
 
         return dp[roadLen];
     }
-    
-    //Todo J, this is my own way
+
+    //J, this is my own way
     public static int getRevenueWithRec(int[] prices, int rodLength) {
         int maxRevenue = 0;
         if (rodLength > prices.length) {
