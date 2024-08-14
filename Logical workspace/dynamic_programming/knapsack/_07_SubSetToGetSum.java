@@ -1,29 +1,32 @@
 package dynamic_programming.knapsack;
 
 public class _07_SubSetToGetSum {
-    public _07_SubSetToGetSum() {
-    }
 
     public static void main(String[] args) {
-        int[] array = new int[]{2, 3, 7, 5, 10};
+        int[] array = {2, 3, 7, 5, 10};
         int targetSum = 5;
-        System.out.println(subSetToGetSum(array, 0, targetSum));
-        System.out.println(subSetToGetSumUsingIteration(array, targetSum));
+        System.out.println(subSetToGetSumUsingRec(array, 0, targetSum));
+        System.out.println(subSetToGetSumWithDP(array, targetSum));
     }
 
-    private static boolean subSetToGetSum(int[] array, int counter, int targetSum) {
+    private static boolean subSetToGetSumUsingRec(int[] array, int counter, int targetSum) {
         if (targetSum == 0) {
             return true;
-        } else if (counter >= array.length) {
-            return false;
-        } else if (array[counter] > targetSum) {
-            return subSetToGetSum(array, counter + 1, targetSum);
-        } else {
-            return subSetToGetSum(array, counter + 1, targetSum - array[counter]) || subSetToGetSum(array, counter + 1, targetSum);
         }
+
+        if (counter >= array.length) {
+            return false;
+        }
+
+        if (array[counter] > targetSum) {
+            return subSetToGetSumUsingRec(array, counter + 1, targetSum);
+        }
+
+        return subSetToGetSumUsingRec(array, counter + 1, targetSum) ||
+                subSetToGetSumUsingRec(array, counter + 1, targetSum - array[counter]);
     }
 
-    private static boolean subSetToGetSumUsingIteration(int[] array, int targetSum) {
+    private static boolean subSetToGetSumWithDP(int[] array, int targetSum) {
         boolean[][] dp = new boolean[array.length + 1][targetSum + 1];
 
         int rows;
