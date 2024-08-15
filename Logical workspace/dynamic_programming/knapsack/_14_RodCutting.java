@@ -2,6 +2,46 @@ package dynamic_programming.knapsack;
 
 public class _14_RodCutting {
 
+    public static void main(String[] args) {
+        int[] pricePerLength = {2, 5, 7, 8};
+
+        int rodLength = 4;
+        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+
+        rodLength = 8;
+        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+
+        rodLength = 6;
+        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+
+        rodLength = 9;
+        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+
+        rodLength = 2;
+        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+
+        rodLength = 50;
+        System.out.printf("Maximum revenue %d -%d - %d to get the rod length of %d\n",
+                calculateMaxRevenueWithDP(pricePerLength, rodLength),
+                maxRevenueWithIterator(pricePerLength, rodLength),
+                getRevenueWithRec(pricePerLength, rodLength), rodLength);
+    }
+
     private static int calculateMaxRevenueWithDP(int[] prices, int rodLen) {
         int[][] dp = new int[prices.length + 1][rodLen + 1];
 
@@ -26,7 +66,7 @@ public class _14_RodCutting {
             }
         }
 
-        if (rodLen == 9) {
+        if (rodLen == 4) {
             for (pieceLen = 0; pieceLen <= prices.length; ++pieceLen) {
                 for (reqLen = 0; reqLen <= rodLen; ++reqLen) {
                     System.out.print(dp[pieceLen][reqLen] + "\t");
@@ -89,45 +129,4 @@ public class _14_RodCutting {
         return maxRevenue;
     }
 
-    public static void main(String[] args) {
-        int[] pricePerLength = {2, 5, 7, 8};
-
-        int rodLength = 4;
-        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength),
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-
-        rodLength = 8;
-        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength),
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-
-        rodLength = 6;
-        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength),
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-
-        rodLength = 9;
-        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength),
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-
-        rodLength = 2;
-        System.out.printf("Maximum revenue %d - %d - %d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength),
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-
-        rodLength = 50;
-        System.out.printf("Maximum revenue %d -%d to get the rod length of %d\n",
-                calculateMaxRevenueWithDP(pricePerLength, rodLength),
-                maxRevenueWithIterator(pricePerLength, rodLength), rodLength);
-
-        System.out.printf("Maximum revenue %d to get the rod length of %d\n",
-                getRevenueWithRec(pricePerLength, rodLength), rodLength);
-    }
 }

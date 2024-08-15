@@ -1,22 +1,42 @@
 package dynamic_programming.knapsack;
 
+/**
+ * The method getSubSetSumCountUsingDP aims to find the number of subsets in a
+ * given array input such that the difference between the sum of elements in two
+ * subsets is equal to a given value diff. This is done using dynamic programming (DP).
+ *
+ * The equation comes from transforming the problem:
+ * S1 + S2 = Sum
+ * S1 - S2 = diff
+ *
+ * Thus,
+ * 2S1 = sum+diff
+ * s1 = (sum+diff)/2
+ *
+ */
+
 public class _11_CountofSubsetforGivenDiff {
     public _11_CountofSubsetforGivenDiff() {
     }
 
     public static void main(String[] args) {
-        int[] input1 = new int[]{2, 3, 5, 7, 8, 10};
+        int[] input = {2, 3, 5, 7, 8, 10};
         int diff = 10;
-        System.out.printf("%d number of subsets the sum of %d \n", getSubSetSumCountUsingIteration(input1, diff), Integer.valueOf(diff));
-        int[] input2 = {1, 1, 2, 3};
+        System.out.printf("%d number of subsets the sum of %d \n",
+                getSubSetSumCountUsingDP(input, diff), diff);
+
+        input = new int[]{1, 1, 2, 3};
         diff = 1;
-        System.out.printf("%d number of subsets the sum of %d \n", getSubSetSumCountUsingIteration(input2, diff), Integer.valueOf(diff));
-        int[] input3 = new int[]{1, 2};
+        System.out.printf("%d number of subsets the sum of %d \n",
+                getSubSetSumCountUsingDP(input, diff), diff);
+
+        input = new int[]{1, 2};
         diff = 1;
-        System.out.printf("%d number of subsets the sum of %d \n", getSubSetSumCountUsingIteration(input3, diff), Integer.valueOf(diff));
+        System.out.printf("%d number of subsets the sum of %d \n",
+                getSubSetSumCountUsingDP(input, diff), diff);
     }
 
-    private static int getSubSetSumCountUsingIteration(int[] input, int diff) {
+    private static int getSubSetSumCountUsingDP(int[] input, int diff) {
         int grandSum = 0;
 
         int set1_sum;

@@ -7,17 +7,17 @@ public class _09_SubSetSumCount {
     public static void main(String[] args) {
         int[] input = new int[]{2, 3, 5, 7, 8, 10};
         int sum = 10;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
         sum = 8;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
         sum = 5;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
         sum = 7;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
         sum = 4;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
         sum = 0;
-        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingIteration(input, sum), Integer.valueOf(sum));
+        System.out.printf("%d - %d number of subsets the sum of %d \n", getSubSetSumCount(input, 0, sum), getSubSetSumCountUsingDP(input, sum), Integer.valueOf(sum));
     }
 
     private static int getSubSetSumCount(int[] input, int index, int sum) {
@@ -35,7 +35,7 @@ public class _09_SubSetSumCount {
         }
     }
 
-    private static int getSubSetSumCountUsingIteration(int[] input, int sum) {
+    private static int getSubSetSumCountUsingDP(int[] input, int sum) {
         int[][] dp = new int[input.length + 1][sum + 1];
 
         int rows;

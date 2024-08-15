@@ -9,28 +9,28 @@ public class _07_SubSetToGetSum {
         System.out.println(subSetToGetSumWithDP(array, targetSum));
     }
 
-    private static boolean subSetToGetSumUsingRec(int[] array, int counter, int targetSum) {
+    private static boolean subSetToGetSumUsingRec(int[] input, int counter, int targetSum) {
         if (targetSum == 0) {
             return true;
         }
 
-        if (counter >= array.length) {
+        if (counter >= input.length) {
             return false;
         }
 
-        if (array[counter] > targetSum) {
-            return subSetToGetSumUsingRec(array, counter + 1, targetSum);
+        if (input[counter] > targetSum) {
+            return subSetToGetSumUsingRec(input, counter + 1, targetSum);
         }
 
-        return subSetToGetSumUsingRec(array, counter + 1, targetSum) ||
-                subSetToGetSumUsingRec(array, counter + 1, targetSum - array[counter]);
+        return subSetToGetSumUsingRec(input, counter + 1, targetSum) ||
+                subSetToGetSumUsingRec(input, counter + 1, targetSum - input[counter]);
     }
 
-    private static boolean subSetToGetSumWithDP(int[] array, int targetSum) {
-        boolean[][] dp = new boolean[array.length + 1][targetSum + 1];
+    private static boolean subSetToGetSumWithDP(int[] input, int targetSum) {
+        boolean[][] dp = new boolean[input.length + 1][targetSum + 1];
 
         int rows;
-        for(rows = 0; rows <= array.length; ++rows) {
+        for(rows = 0; rows <= input.length; ++rows) {
             dp[rows][0] = true;
         }
 
@@ -38,16 +38,23 @@ public class _07_SubSetToGetSum {
             dp[0][rows] = false;
         }
 
-        for(rows = 1; rows <= array.length; ++rows) {
+        for(rows = 1; rows <= input.length; ++rows) {
             for(int cols = 1; cols <= targetSum; ++cols) {
-                if (array[rows - 1] > cols) {
+                if (input[rows - 1] > cols) {
                     dp[rows][cols] = dp[rows - 1][cols];
                 } else {
-                    dp[rows][cols] = dp[rows - 1][cols] || dp[rows - 1][cols - array[rows - 1]];
+                    dp[rows][cols] = dp[rows - 1][cols] || dp[rows - 1][cols - input[rows - 1]];
                 }
             }
         }
 
-        return dp[array.length][targetSum];
+        for(rows = 0; rows <= input.length; ++rows) {
+            for(int cols = 0; cols <= targetSum; ++cols) {
+                System.out.print(dp[rows][cols] + " ");
+            }
+
+            System.out.println();
+        }
+        return dp[input.length][targetSum];
     }
 }
