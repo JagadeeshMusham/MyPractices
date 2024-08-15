@@ -7,23 +7,28 @@ public class _10_MinSubsetSumDiff {
     public static void main(String[] args) {
         int[] input1 = new int[]{1, 2, 7};
         printArray(input1);
-        System.out.println("The minimum difference between two subsets is: " + findMinSubsetSumDifference(input1));
+        System.out.println("The minimum difference between two subsets is: " +
+                findMinSubsetSumDifference(input1));
 
         int[] input2 = new int[]{1, 6, 11, 5};
         printArray(input2);
-        System.out.println("The minimum difference between two subsets is: " + findMinSubsetSumDifference(input2));
+        System.out.println("The minimum difference between two subsets is: " +
+                findMinSubsetSumDifference(input2));
 
         int[] input3 = new int[]{1, 2, 3, 9};
         printArray(input3);
-        System.out.println("The minimum difference between two subsets is: " + findMinSubsetSumDifference(input3));
+        System.out.println("The minimum difference between two subsets is: " +
+                findMinSubsetSumDifference(input3));
 
         int[] input4 = new int[]{1, 1, 1, 1, 1, 1, 1};
         printArray(input4);
-        System.out.println("The minimum difference between two subsets is: " + findMinSubsetSumDifference(input4));
+        System.out.println("The minimum difference between two subsets is: " +
+                findMinSubsetSumDifference(input4));
 
         int[] input5 = new int[]{5, 1, 11, 5};
         printArray(input5);
-        System.out.println("The minimum difference between two subsets is: " + findMinSubsetSumDifference(input5));
+        System.out.println("The minimum difference between two subsets is: " +
+                findMinSubsetSumDifference(input5));
     }
 
     private static void printArray(int[] input) {
