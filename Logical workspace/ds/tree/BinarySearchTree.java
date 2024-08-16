@@ -4,6 +4,10 @@ class Node {
 	int data;
 	Node left;
 	Node right;
+
+	Node(int data) {
+		this.data = data;
+	}
 }
 
 public class BinarySearchTree {
@@ -33,8 +37,7 @@ public class BinarySearchTree {
 	}
 
 	public void insertNode(int value) {
-		Node currentNode = new Node();
-		currentNode.data = value;
+		Node currentNode = new Node(value);
 		currentNode.left = null;
 		currentNode.right = null;
 

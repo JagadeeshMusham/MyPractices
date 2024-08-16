@@ -18,40 +18,27 @@ public class _19_LongestCommonSubSequence {
         firstString = "AGGTAB";
         secondString = "GXTXAYB";
         runLCS(firstString, secondString);
+
+        firstString = "ABC";
+        secondString = "ACD";
+        runLCS(firstString, secondString);
     }
 
     private static void runLCS(String firstString, String secondString) {
         char[] first = firstString.toCharArray();
         char[] second = secondString.toCharArray();
-        int[][] mem = new int[first.length + 1][second.length + 1];
+
+        int[][] memo = new int[first.length + 1][second.length + 1];
 
         for(int counter = 0; counter <= first.length; ++counter) {
-            Arrays.fill(mem[counter], -1);
+            Arrays.fill(memo[counter], -1);
         }
 
         System.out.printf("The longest Common Sub Sequence from %s, %s: %d - %d - %d\n\n",
                 firstString, secondString,
-                getLCSwithRecursive(first, first.length, second, second.length),
-                getLCSwithRecursiveWithMem(first, first.length, second, second.length, mem),
-                getLCSwithDynamicProgram(first, second));
-    }
-
-    private static int getLCSwithRecursiveWithMem(char[] first, int firstLength, char[] second, int secondLength, int[][] mem) {
-        if (firstLength > 0 && secondLength > 0) {
-            if (mem[firstLength][secondLength] != -1) {
-                return mem[firstLength][secondLength];
-            } else {
-                if (first[firstLength - 1] == second[secondLength - 1]) {
-                    mem[firstLength][secondLength] = 1 + getLCSwithRecursive(first, firstLength - 1, second, secondLength - 1);
-                } else {
-                    mem[firstLength][secondLength] = Math.max(getLCSwithRecursive(first, firstLength, second, secondLength - 1), getLCSwithRecursive(first, firstLength - 1, second, secondLength));
-                }
-
-                return mem[firstLength][secondLength];
-            }
-        } else {
-            return 0;
-        }
+                getLCSwithRecursive(first, 0, second, 0),
+                getLCSwithDynamicProgram(first, second),
+                getLCSwithRecursiveMemo(first, 0, second, 0, memo));
     }
 
     private static int getLCSwithDynamicProgram(char[] first,  char[] second) {
@@ -83,10 +70,60 @@ public class _19_LongestCommonSubSequence {
     }
 
     private static int getLCSwithRecursive(char[] first, int firstLength, char[] second, int secondLength) {
-        if (firstLength > 0 && secondLength > 0) {
-            return first[firstLength - 1] == second[secondLength - 1] ? 1 + getLCSwithRecursive(first, firstLength - 1, second, secondLength - 1) : Math.max(getLCSwithRecursive(first, firstLength, second, secondLength - 1), getLCSwithRecursive(first, firstLength - 1, second, secondLength));
-        } else {
+//        if (firstLength > 0 && secondLength > 0) {
+//            return first[firstLength - 1] == second[secondLength - 1] ?
+//                    1 + getLCSwithRecursive(first, firstLength - 1, second, secondLength - 1) :
+//                    Math.max(
+//                            getLCSwithRecursive(first, firstLength, second, secondLength - 1),
+//                            getLCSwithRecursive(first, firstLength - 1, second, secondLength)
+//                    );
+//        } else {
+//            return 0;
+//        }
+
+        //2
+        if(firstLength >= first.length || secondLength >= second.length) {
             return 0;
         }
+
+        if (first[firstLength] == second[secondLength]) {
+            return 1 + getLCSwithRecursive(first, firstLength + 1, second, secondLength + 1);
+        }
+        else {
+            return Math.max(getLCSwithRecursive(first, firstLength + 1, second, secondLength),
+                    getLCSwithRecursive(first, firstLength, second, secondLength + 1));
+        }
+
+//        //3
+//        if (firstLength == first.length || secondLength == second.length) {
+//            return 0;
+//        }
+//
+//        if (first[firstLength] == second[secondLength]) {
+//            return 1 + getLCSwithRecursive(first, firstLength + 1, second, secondLength + 1);
+//        } else {
+//            return Math.max(getLCSwithRecursive(first, firstLength + 1, second, secondLength),
+//                    getLCSwithRecursive(first, firstLength, second, secondLength + 1));
+//        }
+    }
+
+
+    private static int getLCSwithRecursiveMemo(char[] first, int firstLength, char[] second, int secondLength, int[][] memo) {
+        if (firstLength == first.length || secondLength == second.length) {
+            return 0;
+        }
+
+        if (memo[firstLength][secondLength] != -1) {
+            return memo[firstLength][secondLength];
+        }
+
+        if (first[firstLength] == second[secondLength]) {
+            memo[firstLength][secondLength] = 1 + getLCSwithRecursiveMemo(first, firstLength + 1, second, secondLength + 1, memo);
+        } else {
+            memo[firstLength][secondLength] = Math.max(getLCSwithRecursiveMemo(first, firstLength + 1, second, secondLength, memo),
+                    getLCSwithRecursiveMemo(first, firstLength, second, secondLength + 1, memo));
+        }
+
+        return memo[firstLength][secondLength];
     }
 }
