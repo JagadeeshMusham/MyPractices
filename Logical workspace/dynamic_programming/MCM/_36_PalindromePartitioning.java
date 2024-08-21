@@ -7,12 +7,16 @@ public class _36_PalindromePartitioning {
     public static void main(String[] args) {
         String str = "nitinm";
         runPalindromePartitioning(str);
+
         str = "abcbm";
         runPalindromePartitioning(str);
+
         str = "abccbafg";
         runPalindromePartitioning(str);
+
         str = "abccfg";
         runPalindromePartitioning(str);
+
         str = "abac";
         runPalindromePartitioning(str);
     }
@@ -28,7 +32,9 @@ public class _36_PalindromePartitioning {
         if (right <= left) {
             return 0;
         } else {
-            return isPalindrome(str, left, right) ? 0 : 1 + Math.min(minPalindromePartition2(str, left + 1, right), minPalindromePartition2(str, left, right - 1));
+            return isPalindrome(str, left, right) ? 0 :
+                    1 + Math.min(minPalindromePartition2(str, left + 1, right),
+                            minPalindromePartition2(str, left, right - 1));
         }
     }
 
@@ -37,7 +43,8 @@ public class _36_PalindromePartitioning {
             int minCuts = Integer.MAX_VALUE;
 
             for(int i = left; i < right; ++i) {
-                int cuts = 1 + minPalindromePartition1(str, left, i) + minPalindromePartition1(str, i + 1, right);
+                int cuts = 1 + minPalindromePartition1(str, left, i) +
+                        minPalindromePartition1(str, i + 1, right);
                 minCuts = Math.min(minCuts, cuts);
             }
 
