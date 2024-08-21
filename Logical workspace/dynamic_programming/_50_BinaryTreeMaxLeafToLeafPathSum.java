@@ -1,17 +1,8 @@
 package dynamic_programming;
 
-class TreeNode {
-    int value;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int value) {
-        this.value = value;
-    }
-}
-
 public class _50_BinaryTreeMaxLeafToLeafPathSum {
 
+    // [21-Aug-2024] J, Still not sure how it is different from MaxPathSumBinaryTree
     public static void main(String[] args) {
         TreeNode root = new TreeNode(-15);
         root.left = new TreeNode(5);
