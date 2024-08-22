@@ -8,22 +8,26 @@ public class BubbleSort {
 		System.out.println("Enter the number of integers to be sorted");
 		int count = scanner.nextInt();
 
-		int a[] = new int[count];
+		int input[] = new int[count];
 		for (int counter = 0; counter < count; counter++) {
 			System.out.println("Enter the number for" + counter + "position: ");
-			a[counter] = scanner.nextInt();
+			input[counter] = scanner.nextInt();
 		}
 
-		System.out.println("The unsorted array is: ");
-		for (int counter = 0 ; counter < count; counter++) {
-			System.out.print(a[counter] + " ");
-		}
-		
-		doSort(a);
+		System.out.print("\n\nThe unsorted array: ");
+		printArray(input);
 
-		System.out.println("\nThe sorted array is: ");
-		for (int counter = 0 ; counter < count; counter++) {
-			System.out.print(a[counter] + " ");
+		doSort(input);
+
+		System.out.print("The sorted array: ");
+		printArray(input);
+	}
+
+	private static void printArray(int[] input) {
+		for (int counter = 0 ; counter < input.length; counter++) {
+			System.out.print((counter == 0 ? "[" : "") +
+					input[counter] +
+					(counter < input.length - 1 ? ", " : "]\n"));
 		}
 	}
 

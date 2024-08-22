@@ -4,7 +4,7 @@ public class _48_BinaryTreeDiameter {
 
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
-        
+
         TreeNode root = new TreeNode(1);
         root.right = new TreeNode(2);
         root.right.right = new TreeNode(3);
