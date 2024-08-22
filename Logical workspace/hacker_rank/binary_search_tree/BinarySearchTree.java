@@ -41,10 +41,11 @@ public class BinarySearchTree {
 		r3.setData(7);
 		r2.setRight(r3);
 
-		checkBST(root);
+		System.out.println("The given tree is a binary search tree: " +
+				BSTValidation(root));
 	}
 
-	private static boolean checkBST(Node root) {
+	private static boolean BSTValidation(Node root) {
 		if (root != null) {
 			if (!bBST) {
 				return bBST;
@@ -52,7 +53,7 @@ public class BinarySearchTree {
 
 			if (root.getLeft() != null) {
 				if (root.getLeft().getData() < root.getData()) {
-					bBST = checkBST(root.getLeft());
+					bBST = BSTValidation(root.getLeft());
 					
 					if (!bBST) {
 						return bBST;
@@ -65,7 +66,7 @@ public class BinarySearchTree {
 
 			if (root.getRight() != null) {
 				if (root.getRight().getData() > root.getData()) {
-					bBST = checkBST(root.getRight());
+					bBST = BSTValidation(root.getRight());
 					
 					if (bBST) {
 						return bBST;
