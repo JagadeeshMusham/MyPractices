@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class WelcomeService {
 	public String getWelcomeMessage()
 	{
+
 		return "this is Spring boot application";
 	}
 }

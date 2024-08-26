@@ -1,0 +1,45 @@
+package com.musham.mySpringProject.controller;
+
+import com.musham.mySpringProject.entity.JournalEntry;
+//import org.springframework.boot.autoconfigure.mail.MailProperties;
+import org.bson.types.ObjectId;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/journal")
+public class JournalEntryController {
+
+   @GetMapping("/health-check")
+    public String healthCheck() {
+        return "OK";
+    }
+
+    private Map<ObjectId, JournalEntry> journalEntries = new HashMap<>();
+
+   @GetMapping
+    public List<JournalEntry> getAll() {
+        return new ArrayList<>(journalEntries.values());
+    }
+
+    @PostMapping
+    public boolean createEntry(@RequestBody JournalEntry myEntry) {
+       journalEntries.put(myEntry.getId(), myEntry);
+       return true;
+    }
+
+    @GetMapping("/id/{myId}")
+    public JournalEntry getEntryById(@PathVariable Long myId) {
+       return journalEntries.get(myId);
+    }
+
+    @DeleteMapping("/id/{myId}")
+    public JournalEntry deleteEntryById(@PathVariable Long myId) {
+       return journalEntries.remove(myId);
+    }
+
+}
