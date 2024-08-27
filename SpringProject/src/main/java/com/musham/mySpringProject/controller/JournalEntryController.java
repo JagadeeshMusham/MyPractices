@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping("/journal/v1")
 public class JournalEntryController {
 
-    private Map<ObjectId, JournalEntry> journalEntries = new HashMap<>();
+    private Map<String, JournalEntry> journalEntries = new HashMap<>();
 
     @GetMapping
     public List<JournalEntry> getAll() {

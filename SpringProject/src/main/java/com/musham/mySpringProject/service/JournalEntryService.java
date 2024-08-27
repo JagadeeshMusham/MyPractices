@@ -5,7 +5,10 @@ import com.musham.mySpringProject.entity.User;
 import com.musham.mySpringProject.repository.JournalEntryRespository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,8 +31,12 @@ public class JournalEntryService {
         return journalEntryRespository.save(journalEntry);
     }
 
+    @Transactional
     public void saveEntry(JournalEntry journalEntry, String userName) {
         User user = userService.findByUserName(userName);
+        if (user == null) {
+            return;
+        }
 
         journalEntry.setDate(LocalDateTime.now());
         JournalEntry savedEntry = journalEntryRespository.save(journalEntry);
@@ -43,8 +50,13 @@ public class JournalEntryService {
 //        return journalEntry;
     }
 
+    @Transactional
     public void deleteEntryById(ObjectId id, String userName) {
         User user = userService.findByUserName(userName);
+        if (user == null) {
+            return;
+        }
+
         user.getJournalEntries().removeIf(x -> x.getId().equals(id));
 
         userService.saveEntry(user);

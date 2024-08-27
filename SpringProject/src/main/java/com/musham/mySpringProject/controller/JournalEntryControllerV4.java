@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.PushbackReader;
 import java.util.List;
 
+/**
+ * In this version of Controller mapping the JournalEntry with Users
+ */
 @RestController
 @RequestMapping("/journal/v4")
 public class JournalEntryControllerV4 {
@@ -27,6 +30,10 @@ public class JournalEntryControllerV4 {
     public ResponseEntity<?> findAllJournalEntriesOfUser(@PathVariable String userName) {
 
         User user = userService.findByUserName(userName);
+        if (user == null) {
+            return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
+        }
+
         List<JournalEntry> journalEntries = user.getJournalEntries();
 
         if (journalEntries == null || journalEntries.isEmpty()) {
@@ -35,17 +42,6 @@ public class JournalEntryControllerV4 {
 
         return new ResponseEntity<>(journalEntries, HttpStatus.OK);
     }
-
-//    @GetMapping("/id/{myId}")
-//    public ResponseEntity<JournalEntry> findEntryById(@PathVariable ObjectId myId) {
-//        JournalEntry journalEntry = journalEntryService.findEntryById(myId).orElse(null);
-//
-//        if (journalEntry == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        return new ResponseEntity<>(journalEntry, HttpStatus.OK);
-//    }
 
     @PostMapping("/{userName}")
     public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry, @PathVariable String userName) {
@@ -57,7 +53,7 @@ public class JournalEntryControllerV4 {
         }
     }
 
-    @PutMapping("/id/{userName}/{myId}")
+    @PutMapping("/{userName}/{id}")
     public ResponseEntity<?> updateEntryById(@PathVariable String userName,
                                              @PathVariable ObjectId id,
                                              @RequestBody JournalEntry newEntry) {
@@ -65,8 +61,7 @@ public class JournalEntryControllerV4 {
         JournalEntry journalEntryInDB = journalEntryService.findEntryById(id).orElse(null);
 
         if (journalEntryInDB != null) {
-            journalEntryInDB.setTitle(
-                    (newEntry.getTitle() == null || newEntry.getTitle().isEmpty()) ?
+            journalEntryInDB.setTitle( newEntry.getTitle().isEmpty() ?
                             journalEntryInDB.getTitle() : newEntry.getTitle()
             );
 
@@ -82,7 +77,7 @@ public class JournalEntryControllerV4 {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/id/{userName}/{myId}")
+    @DeleteMapping("/{userName}/{myId}")
     public ResponseEntity<?> deleteEntryById(@PathVariable String userName, @PathVariable ObjectId myId) {
         if (!journalEntryService.findEntryById(myId).isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

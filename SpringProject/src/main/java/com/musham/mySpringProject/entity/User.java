@@ -26,7 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
     @Id
-    private ObjectId id;
+    private String id;
 
     @Indexed(unique = true) //This will not accept duplicate names
     /**

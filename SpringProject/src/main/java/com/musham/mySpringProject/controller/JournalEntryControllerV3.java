@@ -50,8 +50,9 @@ public class JournalEntryControllerV3 {
         }
     }
 
-    @PutMapping("/id/{myId}")
-    public ResponseEntity<?> updateEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry) {
+    @PutMapping("/id/{id}")
+    public ResponseEntity<?> updateEntryById(@PathVariable ObjectId id,
+                                             @RequestBody JournalEntry newEntry) {
 
         JournalEntry journalEntryInDB = journalEntryService.findEntryById(id).orElse(null);
 

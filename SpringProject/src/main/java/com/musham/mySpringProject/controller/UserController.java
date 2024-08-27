@@ -42,15 +42,15 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createEntry(@RequestBody User user) {
+    public ResponseEntity<?> createEntry(@RequestBody User user) {
         try {
             return new ResponseEntity<>(userService.saveEntry(user), HttpStatus.CREATED);
         } catch (Exception ex) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/{usreName}")
+    @PutMapping("/{userName}")
     public ResponseEntity<?> updateEntryById(@PathVariable String userName, @RequestBody User newUser) {
 
         User userInDB = userService.findByUserName(userName);
