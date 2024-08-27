@@ -10,52 +10,52 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/journal/v1")
+@RequestMapping("/journal/v2")
 public class JournalEntryControllerV2 {
 
     @Autowired
     private JournalEntryService journalEntryService;
 
-   @GetMapping
+    @GetMapping
     public List<JournalEntry> findAll() {
-       return journalEntryService.findAll();
-    }
-
-    @PostMapping
-    public JournalEntry createEntry(@RequestBody JournalEntry myEntry) {
-       myEntry.setDate(LocalDateTime.now());
-        return journalEntryService.saveEntry(myEntry);
+        return journalEntryService.findAll();
     }
 
     @GetMapping("/id/{myId}")
     public JournalEntry findEntryById(@PathVariable ObjectId myId) {
-       return journalEntryService.findEntryById(myId).orElse(null);
+        return journalEntryService.findEntryById(myId).orElse(null);
     }
 
-    @DeleteMapping("/id/{myId}")
-    public boolean deleteEntryById(@PathVariable ObjectId myId) {
-       journalEntryService.deleteEntryById(myId);
-       return true;
+    @PostMapping
+    public JournalEntry createEntry(@RequestBody JournalEntry myEntry) {
+        myEntry.setDate(LocalDateTime.now());
+        return journalEntryService.saveEntry(myEntry);
     }
 
     @PutMapping("/id/{myId}")
     public JournalEntry updateEntryById(@PathVariable ObjectId id, @RequestBody JournalEntry newEntry) {
 
-       JournalEntry oldEntry = journalEntryService.findEntryById(id).orElse(null);
+        JournalEntry journalEntryInDB = journalEntryService.findEntryById(id).orElse(null);
 
-       if(oldEntry != null) {
-           oldEntry.setTitle(
-                   (newEntry.getTitle() != null && !newEntry.getTitle().isEmpty()) ?
-                           newEntry.getTitle() : oldEntry.getTitle()
-           );
+        if (journalEntryInDB != null) {
+            journalEntryInDB.setTitle(
+                    (newEntry.getTitle() == null || newEntry.getTitle().isEmpty()) ?
+                            journalEntryInDB.getTitle() : newEntry.getTitle()
+            );
 
-           oldEntry.setContent(
-                   (newEntry.getContent() != null && !newEntry.getTitle().isEmpty()) ?
-                           newEntry.getContent() : oldEntry.getContent()
-           );
-       }
+            journalEntryInDB.setContent(
+                    (newEntry.getContent() == null || newEntry.getContent().isEmpty()) ?
+                            journalEntryInDB.getContent() : newEntry.getContent()
+            );
+        }
 
-       return journalEntryService.saveEntry(oldEntry);
+        return journalEntryService.saveEntry(journalEntryInDB);
+    }
+
+    @DeleteMapping("/id/{myId}")
+    public boolean deleteEntryById(@PathVariable ObjectId myId) {
+        journalEntryService.deleteEntryById(myId);
+        return true;
     }
 
 }
