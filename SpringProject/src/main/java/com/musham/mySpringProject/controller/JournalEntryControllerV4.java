@@ -31,7 +31,7 @@ public class JournalEntryControllerV4 {
 
         User user = userService.findByUserName(userName);
         if (user == null) {
-            return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(userName + " User Not Found", HttpStatus.NOT_FOUND);
         }
 
         List<JournalEntry> journalEntries = user.getJournalEntries();

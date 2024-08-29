@@ -44,4 +44,6 @@ public class User {
     @DBRef  //This annotation is required to create reference to JournalEntry
     List<JournalEntry> journalEntries = new ArrayList<>();
 
+    private List<String> roles;
+
 }
