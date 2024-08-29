@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri:mongodb+srv://jagadeeshmusham:Welcome@2080@cluster0.yfbv5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database:journaldb

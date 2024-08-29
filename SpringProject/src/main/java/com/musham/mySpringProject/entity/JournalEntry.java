@@ -20,7 +20,7 @@ import java.util.Objects;
 @Setter
 public class JournalEntry {
     @Id
-    private String id;
+    private ObjectId id;
 
     @NonNull
     private String title;
