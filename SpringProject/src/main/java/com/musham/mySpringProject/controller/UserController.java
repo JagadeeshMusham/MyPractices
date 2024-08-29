@@ -1,15 +1,13 @@
 package com.musham.mySpringProject.controller;
 
-import com.musham.mySpringProject.entity.JournalEntry;
 import com.musham.mySpringProject.entity.User;
-import com.musham.mySpringProject.service.JournalEntryService;
 import com.musham.mySpringProject.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -73,20 +71,24 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @PutMapping
-//    public ResponseEntity<?> updateUser(@RequestBody User user) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String userName = authentication.getName();
-//        return updateUserInDB(userName, user);
-//    }
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        return updateUserInDB(userName, user);
+    }
 
-    @DeleteMapping("/id/{myId}")
+    @DeleteMapping("/id")
     public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId myId) {
-        if (!userService.findEntryById(myId).isPresent()) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        User userInDB = userService.findByUserName(userName);
+
+        if (userInDB == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        userService.deleteEntryById(myId);
+        userService.deleteEntryById(userInDB.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

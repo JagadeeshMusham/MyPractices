@@ -4,11 +4,9 @@ import com.musham.mySpringProject.entity.User;
 import com.musham.mySpringProject.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +15,14 @@ public class UserService {
     @Autowired
     private UserRepository userRespository;
 
-//    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<User> findAll() {
         return userRespository.findAll();
     }
 
     public User saveEntry(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of("ADMIN"));
         return userRespository.save(user);
     }
