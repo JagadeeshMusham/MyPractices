@@ -1,7 +1,6 @@
 package com.musham.mySpringProject.controller;
 
 import com.musham.mySpringProject.entity.JournalEntry;
-//import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 

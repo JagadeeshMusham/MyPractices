@@ -5,8 +5,6 @@ import com.musham.mySpringProject.entity.User;
 import com.musham.mySpringProject.repository.JournalEntryRespository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

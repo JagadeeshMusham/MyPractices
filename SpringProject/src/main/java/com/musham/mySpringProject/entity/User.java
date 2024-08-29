@@ -27,7 +27,7 @@ import java.util.List;
 public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private ObjectId id;
 
     @Indexed(unique = true) //This will not accept duplicate names
     /**
