@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class JournalEntryControllerV3 {
     private JournalEntryService journalEntryService;
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')") // it will allow only ADMIN privileged user to access this
     public ResponseEntity<?> findAll() {
         List<JournalEntry> journalEntries = journalEntryService.findAll();
 
@@ -30,6 +32,7 @@ public class JournalEntryControllerV3 {
         return new ResponseEntity<>(journalEntries, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')") // it will allow only ADMIN privileged user to access this
     @GetMapping("/id/{myId}")
     public ResponseEntity<JournalEntry> findEntryById(@PathVariable ObjectId myId) {
         JournalEntry journalEntry = journalEntryService.findEntryById(myId).orElse(null);
