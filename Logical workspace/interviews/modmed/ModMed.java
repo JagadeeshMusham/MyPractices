@@ -1,4 +1,4 @@
-package interviews;
+package interviews.modmed;
 
 class Node {
     int data;
