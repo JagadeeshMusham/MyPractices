@@ -1,0 +1,43 @@
+<configuration>
+    <!-- Appender and Logger configuration go here -->
+    <appender name="MyConsoleAppender" class ="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:ss.SSS} [%thread] %-5level %logger{36} - %msg\n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- below tag is only file appender, but it not rotate the file-->
+    <!--
+    <appender name="MyFileAppender" class ="ch.qos.logback.core.FileAppender">
+        <File>MySpringProjectApplication.log</File>
+        <encoder>
+            <pattern>
+                %d{YYYY-mm-dd HH:ss.SSS} [%thread] %-5level %logger{36} - %msg\n
+            </pattern>
+        </encoder>
+    </appender>
+    -->
+
+    <appender name="MyFileAppender" class ="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--
+        <file>MySpringProjectApplication.log</file>
+        -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>MySpringProjectApplication-%d{YY-MM-dd_HH}.%i.log</fileNamePattern>
+            <MaxFileSize>10MB</MaxFileSize>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{YYYY-mm-dd HH:ss.SSS} [%thread] %-5level %logger{36} - %msg\n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level = "INFO" >
+        <appender-ref ref="MyConsoleAppender" />
+        <appender-ref ref="MyFileAppender" />
+    </root>
+</configuration>

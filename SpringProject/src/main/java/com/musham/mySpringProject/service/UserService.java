@@ -2,6 +2,7 @@ package com.musham.mySpringProject.service;
 
 import com.musham.mySpringProject.entity.User;
 import com.musham.mySpringProject.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRespository;
@@ -25,6 +27,7 @@ public class UserService {
 
     public User saveEntry(User user) {
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        log.info("Save entry for user: {}", user.getUserName());
         user.setRoles(List.of("ADMIN"));
         return userRespository.save(user);
     }
