@@ -1,7 +1,6 @@
 package com.musham.mySpringProject.service;
 
 import com.musham.mySpringProject.api.response.CricketResponse;
-import com.musham.mySpringProject.api.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;

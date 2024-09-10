@@ -1,8 +1,6 @@
 package com.musham.mySpringProject.controller;
 
-import com.musham.mySpringProject.entity.JournalEntry;
 import com.musham.mySpringProject.entity.User;
-import com.musham.mySpringProject.service.JournalEntryService;
 import com.musham.mySpringProject.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PushbackReader;
 import java.util.List;
 
 /**
@@ -61,8 +60,8 @@ public class JournalEntryControllerV4 {
         JournalEntry journalEntryInDB = journalEntryService.findEntryById(id).orElse(null);
 
         if (journalEntryInDB != null) {
-            journalEntryInDB.setTitle( newEntry.getTitle().isEmpty() ?
-                            journalEntryInDB.getTitle() : newEntry.getTitle()
+            journalEntryInDB.setTitle(newEntry.getTitle().isEmpty() ?
+                    journalEntryInDB.getTitle() : newEntry.getTitle()
             );
 
             journalEntryInDB.setContent(

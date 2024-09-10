@@ -3,7 +3,6 @@ package com.musham.mySpringProject.service;
 import com.musham.mySpringProject.entity.JournalEntry;
 import com.musham.mySpringProject.entity.User;
 import com.musham.mySpringProject.repository.JournalEntryRespository;
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

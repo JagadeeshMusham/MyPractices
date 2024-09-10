@@ -1,6 +1,5 @@
 package com.musham.mySpringProject.controller;
 
-
 import com.musham.mySpringProject.service.ClientWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
