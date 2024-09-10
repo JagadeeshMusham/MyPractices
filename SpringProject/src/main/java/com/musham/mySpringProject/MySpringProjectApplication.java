@@ -11,8 +11,8 @@ import java.lang.module.Configuration;
  * spring initializr
  * 	By using Spring initializer we have created this basic Spring Boot Application
  */
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 public class MySpringProjectApplication {
 
 	public static void main(String[] args) {
