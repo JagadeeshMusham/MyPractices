@@ -2,15 +2,17 @@ package com.musham.mySpringProject.service;
 
 import com.musham.mySpringProject.api.response.CricketResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
 public class ClientCricketService {
 
-    private static final String apiKey = "65b33c20bemsh62b8681e1673b40p15bf96jsnc4060ec61864";
+    @Value("${weather.api.key}")
+    private String apiKey;
 
     private static final String api = "https://cricbuzz-cricket.p.rapidapi.com/teams/v1/international";
 

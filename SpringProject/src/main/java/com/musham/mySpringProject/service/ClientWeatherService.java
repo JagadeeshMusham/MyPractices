@@ -2,6 +2,7 @@ package com.musham.mySpringProject.service;
 
 import com.musham.mySpringProject.api.response.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -10,9 +11,10 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class ClientWeatherService {
 
-    private static final String apiKey = "65b33c20bemsh62b8681e1673b40p15bf96jsnc4060ec61864";
+    @Value("${weather.api.key}")
+    private String apiKey;
 
-    private static final String api = "https://weatherapi-com.p.rapidapi.com/current.json?q=53.1%2C-0.13";
+    private static final String api = "https://weatherapi-com.p.rapidapi.com/current.json?q=Hyderabad%2C%20Telangana";
 
     // Create RestTemplate instance
     @Autowired
@@ -25,7 +27,7 @@ public class ClientWeatherService {
             // Set up the headers
             HttpHeaders headers = new HttpHeaders();
             headers.set("x-rapidapi-host", "weatherapi-com.p.rapidapi.com");
-            headers.set("x-rapidapi-key", "65b33c20bemsh62b8681e1673b40p15bf96jsnc4060ec61864");
+            headers.set("x-rapidapi-key", apiKey);
             headers.set("Accept", "application/json"); // Request JSON response
 
             // Create an entity with the headers
