@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+	div {
+		border: 1px solid red;
+		padding: 10px
+	}
+</style>
+<body>
+	<!--
+	
+	In AngularJS, child scopes inherit from their parent scopes. 
+	However, when properties like Age are reassigned in childController or grandChildController, 
+	they shadow the parent scope's properties, potentially causing confusion.
+	
+	-->
+	
+	<div ng-app="myApp">
+		<div ng-controller="parentController">
+			{{Name}},{{Age}}
+			<div ng-controller="childController">
+				{{Name}},{{Age}}
+				<div ng-controller="grandChildController">
+					{{Name}},{{Age}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+			app.controller("parentController", function($scope) {
+				$scope.Name = "Parent"
+				$scope.Age = 65
+			})
+			app.controller("childController", function($scope) {
+				$scope.Age = 40
+			})
+			app.controller("grandChildController", function($scope) {
+				$scope.Name = "GrandChild"
+				$scope.Age = 15
+		})
+	</script>
+
+</body>
+</html>

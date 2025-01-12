@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS Button Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="demoController">
+    <form name="myForm">
+        First Name: 
+        <input type="text" name="firstName" ng-model="user.firstName" required
+               ng-model-options="{updateOn:'blur mouseup',
+                                  debounce:{'default':5000, 'blur':1000}}" /> 
+        <br>
+        Last Name: 
+        <input type="text" name="lastName" ng-model="user.lastName" /> 
+        <br>
+        <input type="button" value="Get Full Name" ng-click="fullName()"> 
+        <br>
+        <input type="time" name="timeDemo" ng-model="demoTime" /> 
+        {{demoTime}}
+        <br>
+    </form>
+
+    <pre>{{user | json}}</pre>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller("demoController", function($scope) {
+            // Define user as a plain object
+            $scope.user = { firstName: "Jagadeesh", lastName: "Musham" };
+
+            // Full Name Function
+            $scope.fullName = function() {
+                if ($scope.user.firstName && $scope.user.lastName) {
+                    alert($scope.user.firstName + " " + $scope.user.lastName);
+                } else {
+                    alert("First Name or Last Name is missing!");
+                }
+            };
+        });
+    </script>
+</body>
+</html>

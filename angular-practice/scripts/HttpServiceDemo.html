@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>AngularJS Service Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller = "ajaxDemoController">
+		<input type = "button" name = "GetStudentInfo" value = "GetStudentInfo" ng-click = "getStudents()" />
+		<table>
+			<thead>
+				<tr>
+					<th> Name</th>
+					<th> RollNo</th>
+					<th> Marks</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="student in students">
+					<td>{{student.Name}}</td>
+					<td>{{student.RollNo}}</td>
+					<td>{{student.Marks}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller("ajaxDemoController", function($scope, $http) {
+			$scope.students = [];
+			$scope.getStudents = function() {
+			/**
+			* Run the Node.js HTTP-server with the --cors flag:
+				> http-server --cors
+			
+			* Note: 
+			*	1. Above command has to run in console and path has to be same as .json file
+			*	2. This is required to access the local file
+			*	3. Sometimes cache data will not load latest information / changes in file, The solution is:
+			*		a. Open Chrome's Developer Tools (Ctrl + Shift + I or Cmd + Shift + I).
+			*		b. Go to the Network tab.
+			*		c. Check "Disable cache" (in the top bar of the Network tab).
+			*		d. Reload the page (Ctrl + R).
+			**/
+				$http.get("http://127.0.0.1:8080/StudentInfo.json")
+					.then(function(response) {
+						$scope.students = response.data;
+					}, function(error) {
+						console.error("Error fetching data: ", error);
+						alert("Error: Unable to fetch student data. Check the console for details:", error);
+					});
+					
+			}
+		});
+	</script>
+
+</body>
+</html>

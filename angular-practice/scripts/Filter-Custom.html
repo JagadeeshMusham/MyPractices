@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+	<div ng-app="myApp" ng-controller="studentController">
+		Filter: <input type="text" name="studentFilter" ng-model="studentFilter" />
+		<br>
+		<table>
+			<thead>
+				<td>Id</td>
+				<td>Name</td>
+				<td>Marks</td>
+			</thead>
+			<tr ng-repeat="student in students | filter:studentFilter | orderBy:'marks' | passed:70">
+				<td>{{student.id}}</td>
+				<td>{{student.name | lowercase | reverse}}</td>
+				<td>{{student.marks}}</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		
+		app.controller("studentController", function($scope) {
+			$scope.students = [
+				{id:1, name:"ABC", marks:80},
+				{id:2, name:"MNO", marks:70},
+				{id:3, name:"XYZ", marks:90},
+				{id:4, name:"PQR", marks:75}
+			]
+		});
+		
+		app.filter('reverse', function() {
+			return function(input, args) {
+				input = input || "";
+				var output = "";
+				for(var ind = 0; ind < input.length; ind++) {
+					output= input.charAt(ind) + output;
+				}
+				
+				return output;
+			}
+		})
+		
+		app.filter('passed', function() {
+			return function(input, args) {
+				var passScore = 35;
+				
+				if (args) {
+					passScore = Number(args)
+				}
+				
+				var filterValues = []
+				for (var ind = 0; ind < input.length; ind++) {
+					var score = input[ind];
+					if (score.marks > passScore) {
+						filterValues.push(score);
+					}
+				}
+				
+				return filterValues;
+			}
+		})
+	</script>
+
+</body>
+</html>

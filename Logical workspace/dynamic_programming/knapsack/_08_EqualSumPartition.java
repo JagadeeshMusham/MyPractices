@@ -1,6 +1,8 @@
 package dynamic_programming.knapsack;
 
-public class _08_EqualSumPartition {
+public class
+
+_08_EqualSumPartition {
     public _08_EqualSumPartition() {
     }
 

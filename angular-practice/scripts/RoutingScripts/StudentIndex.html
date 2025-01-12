@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Student Management</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="mainApp" ng-controller = "StudentController">
+		
+		<a href = "#!/AddStudent">Add Student</a><br>
+		<a href = "#!/ShowAllStudents">Show All Students</a><br>
+		<a href = "#!/StudentDetails">Student details</a><br>
+
+	
+		<hr />
+		<ng-view></ng-view>
+		<hr />	
+		Copyright Jagadeesh Musham...
+		
+	<script>
+		var app = angular.module('mainApp', ["ngRoute"]);
+		
+		app.config(["$routeProvider", function($routeProvider) {
+			$routeProvider.when("/StudentDetails", {
+					templateUrl:"Templates/StudentDetails.html",
+					controller:"StudentController",
+					customData:"Student Details"
+			}).when("/StudentDetails1/:RollNo/:Name", {
+					templateUrl:"Templates/StudentDetails1.html",
+					controller:"StudentController",
+					customData:"Student Details1"
+			}).when("/AddStudent", {
+					templateUrl:"Templates/AddStudent.html",
+					controller:"StudentController",
+					customData:"Add Student"
+			}).when("/ShowAllStudents", {
+					templateUrl:"Templates/ShowAllStudents.html",
+					controller:"StudentController",
+					customData:"Show All Students"
+			})
+			.otherwise({redirectTo:"/ShowAllStudents"})
+		}])
+		
+		app.service("StudentService", function($http, $q) {
+		
+			this.getAllStudents = function() {
+				console.log("Fetching students...");
+				
+				var deferred = $q.defer();
+
+				$http.get("http://127.0.0.1:8080/StudentInfo.json")
+					.then(function(response) {
+						console.log("Data fetched successfully:", response.data);
+						deferred.resolve(response.data);
+					}, function(error) {
+						console.error("Error fetching data:", error);
+						deferred.reject(error);
+					});
+					
+				return deferred.promise;
+					
+			};
+		});
+		
+		app.controller("StudentController", function($scope, $routeParams, $location, $route, StudentService) {
+			$scope.getStudents = function() {
+				$scope.SelectedStudentRollNo = $routeParams.RollNo;
+				$scope.SelectedStudentName = $routeParams.Name;
+				
+				$scope.$on("$routeChangeSuccess", function(event, header, next) {
+					$scope.header = $route.current.customData
+				})
+			
+				$scope.students = [];
+				$scope.notification = "";
+				
+				console.log("Fetching students...");
+				
+				var promise = StudentService.getAllStudents();
+				
+				promise.then(
+					function(data) {
+						console.log("Students loaded:", data);
+						$scope.students = data;
+					},
+					function(error) {
+						console.error("Error loading students:", error);
+						alert(error);
+					}
+				);
+				
+				$scope.SaveStudent = function() {
+					alert("Student details are saved.");
+					$location.path("/ShowAllStudents");
+				} 
+			};
+			
+			$scope.getStudents();
+		});
+	</script>
+
+</body>
+</html>

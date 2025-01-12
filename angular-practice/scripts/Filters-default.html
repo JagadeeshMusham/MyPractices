@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+	<div ng-app="myApp" ng-controller="studentController">
+		Filter: <input type="text" name="studentFilter" ng-model="studentFilter" />
+		<table>
+			<thead>
+				<tr>Id</tr>
+				<tr>Name</tr>
+				<tr>Marks</tr>
+			</thead>
+			<tr ng-repeat="student in students | filter:studentFilter | orderBy:'marks' ">
+				<td>{{student.id}}</td>
+				<td>{{student.name | lowercase}}</td>
+				<td>{{student.marks}}</td>
+			</tr>
+		</table>
+
+		<br><br><hr><br>
+		{{students[0] | json: 5}}
+
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		
+		app.controller("studentController", function($scope) {
+			$scope.students = [
+				{id:1, name:"ABC", marks:80},
+				{id:2, name:"MNO", marks:70},
+				{id:3, name:"XYZ", marks:90},
+				{id:4, name:"PQR", marks:75}
+			]
+		});
+	</script>
+
+</body>
+</html>

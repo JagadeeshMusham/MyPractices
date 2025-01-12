@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+	<div ng-app="myApp" ng-controller="studentController">
+		<br>
+		<table>
+			<thead>
+				<td>Id</td>
+				<td>Name</td>
+				<td>Marks</td>
+			</thead>
+			<tr ng-repeat="student in students">
+				<td>{{student.id}}</td>
+				<td>{{student.name}}</td>
+				<td>{{student.marks}}</td>
+				<td> <input type = "button" ng-click="selectStudent($index)" value="select" /> </td>
+			</tr>
+		</table>
+		<hr>
+		Selected Student {{selectedStudent}}
+		<hr>
+		<form name="StudentForm">
+			Id: <Input type="text" name = "Id" ng-model="newStudent.id" /><br>
+			Name: <Input type = "text" name = "Name" ng-model="newStudent.name" /><br>
+			Marks: <Input type = "text" name = "Marks" ng-model="newStudent.marks" /><br>
+			<Input type="button" name = "AddButton" value = "Add" ng-click="addStudent(newStudent)" />
+		</form>
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		
+		app.controller("studentController", function($scope) {
+			$scope.students = [
+				{id:1, name:"ABC", marks:80},
+				{id:2, name:"MNO", marks:70},
+				{id:3, name:"XYZ", marks:90},
+				{id:4, name:"PQR", marks:75}
+			]
+			
+			$scope.selectedStudent = $scope.students[0]
+			$scope.selectStudent = function(ind) {
+				$scope.selectedStudent = $scope.students[ind]
+			}
+			
+			$scope.addStudent = function(newStudent) {
+				$scope.students.push(newStudent)
+				$scope.newStudent = {}
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

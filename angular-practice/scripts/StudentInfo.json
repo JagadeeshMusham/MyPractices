@@ -1,0 +1,22 @@
+[
+	{
+		"Name" : "Jagadeesh",
+		"RollNo" : 30,
+		"Marks" : 90
+	},
+	{
+		"Name" : "Shyamala",
+		"RollNo" : 18,
+		"Marks" : 95
+	},
+	{
+		"Name" : "Musham",
+		"RollNo" : 12,
+		"Marks" : 70
+	},
+	{
+		"Name" : "Musham2",
+		"RollNo" : 15,
+		"Marks" : 60
+	}
+]

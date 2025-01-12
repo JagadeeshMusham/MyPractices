@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS Button Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="demoController">
+    <form action="/" name="myForm" method="post">
+        First Name: <input type="text" name="firstName" ng-model="user.firstName" required
+                        ng-model-options="{updateOn:'blur mouseup',
+                                            debounce:{'default':5000, 'blur':1000},
+                                            getterSetter:true,
+                                            allowInvalid:true}"/> <br>
+        Last Name : <input type="text" name="lastName" ng-model="user.lastName" /> <br>
+        <input type="button" name="FullNameButton" value="GetFullName" ng-click="fullName()"> <br>
+        <!--input type="time" name="timeDemo" ng-model="demoTime" ng-model-options="{timezone:'+0530'}"/> {{demoTime}}<br-->
+        <input type="time" name="timeDemo" ng-model="demoTime" ng-model-options="{timezone:'+5:30'}" /> {{ demoTime | date:'shortTime' }}<br>
+    </form>
+
+    <pre>{{getUserSerializable() | json}}</pre>
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller("demoController", function($scope) {
+            var fName = "Jagadeesh"
+            function getSetFirstNameValue(newValue) {
+                if (angular.isDefined(newValue)) {
+                    fName = newValue.toUpperCase(); // set the new value
+                }
+                return fName; // return the current value
+            }
+
+			$scope.user = {firstName: getSetFirstNameValue, lastName: "Musham"};
+
+            $scope.fullName = function() {
+            	if ($scope.user.firstName && $scope.user.lastName) {
+	                alert($scope.user.firstName() + " " + $scope.user.lastName)
+            	} else {
+            		alert("First Name or Last Name is missing!");
+            	}
+            }			
+
+			// Create a computed representation for debugging
+			$scope.getUserSerializable = function() {
+				return {
+					firstName: $scope.user.firstName(),
+					lastName: $scope.user.lastName
+				};
+			};
+
+        });
+    </script>
+
+</body>
+</html>

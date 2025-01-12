@@ -1,0 +1,19 @@
+Header: {{header}}<br><br>
+<table>
+	<thead>
+		<tr>
+			<th> Name</th>
+			<th> RollNo</th>
+			<th> Marks</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="student in students | orderBy: 'Marks'">
+			<td>{{student.Name}}</td>
+			<td>{{student.RollNo}}</td>
+			<td>{{student.Marks}}</td>
+			<td><a href = "#!/StudentDetails1/{{student.RollNo}}/{{student.Name}}">Details</a></td>
+
+		</tr>
+	</tbody>
+</table>

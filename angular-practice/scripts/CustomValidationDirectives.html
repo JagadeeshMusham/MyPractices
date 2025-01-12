@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="jquery-2.1.1.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+	<style>
+        input.ng-invalid.ng-dirty {
+            color: red;
+        }
+
+        input.ng-valid {
+            color: blue;
+        }
+		
+		/* Prevent color change for the email input */
+        input[name="txtMail"].ng-valid,
+        input[name="txtMail"].ng-invalid {
+            color: inherit; /* Inherit the default color */
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="CustomValidationController">
+	<form action="/" method="post" name="myForm">
+		<input type="email" name="txtMail" ng-model="email" />
+		<span ng-show="myForm.txtMail.$error.email">Please enter a valid email format</span>	
+		<br>
+		Model Value: {{myForm.txtMail.$modelValue}}<br>
+		View Value : {{myForm.txtMail.$viewValue}}<br>
+		
+		<hr>
+		<input type="text" name="txtNumber" ng-model="number" integer/>
+		<span ng-show="myForm.txtNumber.$error.integer">Please enter a valid integer numbers</span>	
+		<br>
+		Model Value: {{myForm.txtNumber.$modelValue}}<br>
+		View Value : {{myForm.txtNumber.$viewValue}}<br>
+		
+		
+	</form>
+
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller("CustomValidationController", function($scope) {
+		
+		});
+		
+		app.directive("integer", function(){
+			return {
+				require:'ngModel',
+				link:function(scope, elem, attrs, ctrl) {
+					ctrl.$validators.integer = function(modelValue, viewValue)
+					{
+						
+						if (ctrl.$isEmpty(modelValue))
+							return true;
+							
+						if (isNaN(viewValue) || viewValue.toString().indexOf('.') != -1)
+						{
+							return false;
+						}
+						
+						return true;
+					}
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

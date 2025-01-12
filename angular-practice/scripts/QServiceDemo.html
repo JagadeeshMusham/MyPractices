@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller = "QueueController">
+		PersonName: <Input type="text" name="PersonName" ng-model="personName" /><br>
+		<input type="button" name="sayHello" value="SayHello" ng-click="callSayHello()" /><br><hr>
+		{{greetings}}
+	</div>
+	<script>
+		/**
+		*	Note:
+		*		1. Q service is an Assynchronious call
+		*		2. HTTP service is a Synchronous call
+		**/
+		var app = angular.module('myApp', []);
+		app.controller("QueueController", function($scope, $q) {
+			function sayHello(name) {
+				var deferred = $q.defer();
+				
+				setTimeout(function() {
+					if (name == "") {
+						deferred.reject("Anonymous Requests Can't be Greeted");
+					}
+					else {
+						deferred.resolve("Hello " + name);
+					}
+				}, 5000);
+				return deferred.promise;
+				
+			}
+			
+			$scope.personName = "Jagadeesh";
+			$scope.callSayHello = function() {
+				var promise = sayHello($scope.personName);
+				
+				promise.then(
+					function(data) {
+						$scope.greetings = data;
+					},
+					function(error) {
+						$scope.greetings = error;
+					}
+				)
+			}
+		});
+	</script>
+
+</body>
+</html>

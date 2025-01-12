@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<style>
+		form input.ng-untouched {
+			background-color:yellow
+		}
+		form input.ng-touched {
+			background-color:red
+		}
+		
+	</style>
+		
+		
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="studentController">
+		<br>
+		<!--table>
+			<thead>
+				<td>Id</td>
+				<td>Name</td>
+				<td>Marks</td>
+			</thead>
+			<tr ng-repeat="student in students">
+				<td>{{student.id}}</td>
+				<td>{{student.name}}</td>
+				<td>{{student.marks}}</td>
+			</tr>
+		</table-->
+		<form action="/" method="post" name="studentForm">
+			Id: <input type = "text" name = "Id" ng-model = "selectedStudent.id" /><br>
+			Name: <input type = "text" name = "Name" ng-model = "selectedStudent.name" /><br>
+			Marks: <input type = "text" name = "Marks" ng-model = "selectedStudent.marks" /><br>
+			
+			<input type="button" name = "saveButton" value = "Save" ng-click="save()" />
+		</form>
+		
+		Pristine: {{studentForm.$pristine}}<br>
+		Un-touched (Name): {{studentForm.Name.$untouched}}<br>
+		Touched (Id) : {{studentForm.Id.$touched}}<br>
+		Dirty: {{studentForm.Marks.$dirty}}<br>
+
+	</div>
+
+	<script>
+		var app = angular.module('myApp', []);
+		
+		app.controller("studentController", function($scope) {
+			$scope.students = [
+				{id:1, name:"ABC", marks:80},
+				{id:2, name:"MNO", marks:70},
+				{id:3, name:"XYZ", marks:90},
+				{id:4, name:"PQR", marks:75}
+			]
+			
+			$scope.selectedStudent = $scope.students[1]
+			$scope.selectStudent = function(ind) {
+				$scope.selectedStudent = $scope.students[ind]
+			}
+			
+			$scope.save = function() {
+				alert("Data is saved");
+				$scope.studentForm.$setPristine();
+				$scope.studentForm.$setUntouched();
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

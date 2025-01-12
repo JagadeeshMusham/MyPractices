@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>AngularJS Service Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="serviceDemo">
+		<input type = "number" ng-model = "number" /><br>
+		<input type="button" ng-click="doSquare()" value = "Square" /><br>
+		<input type="button" ng-click="doHalf()" value = "Half" /><br>
+	</div>
+	
+	<script>
+		var app = angular.module('myApp', []);
+		app.service("MathService", function() {
+			this.multiply = function(a,b) {
+				return a * b;
+			}
+			
+			this.divide = function(a, b) {
+				return a / b;
+			}
+		});
+		
+		app.controller("serviceDemo", function($scope, MathService) {
+			$scope.number = 10;
+			$scope.doSquare = function() {
+				$scope.number = MathService.multiply($scope.number, $scope.number);
+			}
+			
+			$scope.doHalf = function() {
+				$scope.number = MathService.divide($scope.number, 2);
+			}
+		});
+		
+		
+	</script>
+
+</body>
+</html>
