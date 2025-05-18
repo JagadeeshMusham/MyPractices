@@ -7,6 +7,8 @@ class Node {
 
 	Node(int data) {
 		this.data = data;
+		this.left = null;
+		this.right = null;
 	}
 }
 
@@ -17,7 +19,29 @@ public class BinarySearchTree {
 		root = null;
 	}
 
-	private Node getPosition(int value) {
+	private Node getPosition(Node node, int value) {
+		if (node == null) {
+			return null;
+		}
+
+		if (node.data > value) {
+			if (node.left == null) {
+				return node;
+			}
+
+			node = node.left;
+		} else if (node.data < value) {
+			if (node.right == null) {
+				return node;
+			}
+
+			node = node.right;
+		}
+
+		return getPosition(node, value);
+	}
+
+	private Node getPositionWithoutRecursion(int value) {
 		Node posNode = root;
 
 		while (true) {
@@ -36,6 +60,27 @@ public class BinarySearchTree {
 		}
 	}
 
+//	public void insertNode(int value)
+//	{
+//		root = doInsert(root, value);
+//	}
+//
+//	public Node doInsert(Node node, int value) {
+//		if (node == null) {
+//			node = new Node(value);
+//			return node;
+//		}
+//
+//		if (node.data > value) {
+//			return doInsert(node.left, value);
+//		}
+//		else if (node.data < value) {
+//				return doInsert(node.right, value);
+//		}
+//
+//		return node;
+//	}
+
 	public void insertNode(int value) {
 		Node currentNode = new Node(value);
 		currentNode.left = null;
@@ -46,7 +91,7 @@ public class BinarySearchTree {
 			return;
 		}
 
-		Node posNode = getPosition(value);
+		Node posNode = getPosition(root, value);
 
 		if (posNode.data > value) {
 			posNode.left = currentNode;
@@ -81,6 +126,7 @@ public class BinarySearchTree {
 		}
 	}
 
+	// Printing level of a tree is nothing but BFS (Breadth-First Search)
 	private void printLevelOfTree(Node node, int level) {
 		if (node == null)
 			return;
@@ -123,6 +169,8 @@ public class BinarySearchTree {
 	}
 
 	public void deleteNode(int data) {
+
+		System.out.println("\n\nDelete the node: " + data);
 		Node node = root;
 		if (node == null) {
 			return;
@@ -190,29 +238,30 @@ public class BinarySearchTree {
 		bst.insertNode(16);
 		bst.insertNode(17);
 
+		System.out.println("\n\nThe In order traversal is: ");
 		bst.traverseInOrder(bst.root);
 
-		System.out.println("\nThe level order of the tree is: ");
+		System.out.println("\n\nThe level order of the tree is: ");
 		bst.traverseLevelOrder(bst.root);
 
 		bst.deleteNode(15);
-		System.out.println();
+//		System.out.println();
 		bst.traverseInOrder(bst.root);
 
 		bst.deleteNode(20);
-		System.out.println();
+//		System.out.println();
 		bst.traverseInOrder(bst.root);
 
 		bst.deleteNode(10);
-		System.out.println();
+//		System.out.println();
 		bst.traverseInOrder(bst.root);
 		
 		bst.deleteNode(10);
-		System.out.println();
+//		System.out.println();
 		bst.traverseInOrder(bst.root);
 
 		bst.deleteNode(18);
-		System.out.println();
+//		System.out.println();
 		bst.traverseInOrder(bst.root);
 	}
 }

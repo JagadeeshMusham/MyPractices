@@ -29,37 +29,40 @@ public class HeapSort {
     }
 
     private static void doHeapSortUsingMaxHeap(int[] array) {
-        for (int unsortedIndex = array.length - 1; unsortedIndex > 0; unsortedIndex--) {
-            heapify(array, unsortedIndex);
-            swap(array, 0, unsortedIndex);
+        int n = array.length;
+
+        // Step 1: Build max heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i);
+        }
+
+        for (int endIndex = array.length - 1; endIndex > 0; endIndex--) {
+            swap(array, 0, endIndex);  // Swap the root (maximum element) with the last element.
+            heapify(array, endIndex, 0);
         }
     }
 
     // To build a max heap from a subtree rooted at the given index
-    private static void heapify(int[] array, int unsortedIndex) {
-        for (int currentIndex = unsortedIndex; currentIndex > 0; currentIndex--) {
-            int rootIndex = (currentIndex - 1) / 2;
-            if(array[currentIndex] > array[rootIndex]) {
-                swap(array, rootIndex, currentIndex);
+    private static void heapify(int[] array, int endIndex, int rootIndex) {
+        //Assume the root is the largest initially
+        int largestPos = rootIndex;
 
-                heapifySubTree(array, currentIndex, unsortedIndex);
-            }
-        }
-    }
+        int leftChild = 2 * rootIndex + 1;
+        int rightChild = 2 * rootIndex + 2;
 
-    private static void heapifySubTree(int[] array, int rootIndex, int unsortedIndex) {
-
-        int leftIndex = (rootIndex * 2) + 1;
-        int rightIndex = (rootIndex * 2) + 2;
-
-        if(leftIndex < unsortedIndex && array[rootIndex] < array[leftIndex]) {
-            swap(array, rootIndex, leftIndex);
-            heapifySubTree(array, leftIndex, unsortedIndex);
+        if (leftChild < endIndex  &&        // If the left child exists
+                array[leftChild] > array[largestPos]) {
+            largestPos = leftChild;
         }
 
-        if(rightIndex < unsortedIndex && array[rootIndex] < array[rightIndex]) {
-            swap(array, rootIndex, rightIndex);
-            heapifySubTree(array, rightIndex, unsortedIndex);
+        if (rightChild < endIndex  &&       // If the right child exists
+                array[rightChild] > array[largestPos]) {
+            largestPos = rightChild;
+        }
+
+        if (largestPos != rootIndex) {
+            swap(array, rootIndex, largestPos);
+            heapify(array, endIndex , largestPos);
         }
     }
 
@@ -77,51 +80,5 @@ public class HeapSort {
                     (counter < input.length - 1 ? ", " : "]\n"));
         }
     }
-
-//    // Main function to perform Heap Sort
-//    public static void heapSort(int[] array) {
-//        int length = array.length;
-//
-//        // Build a max heap
-//        //length / 2 - 1: This is the index of the last non-leaf node.
-//        for (int index = (length / 2) - 1; index >= 0; index--) {
-//            buildMaxHeap(array, length, index);
-//        }
-//
-//        // Extract elements from heap one by one
-//        for (int lastIndex = length - 1; lastIndex > 0; lastIndex--) {
-//            // Move the current root to the end
-//            swap(array, 0, lastIndex);
-//
-//            // Call buildMaxHeap on the reduced heap
-//            buildMaxHeap(array, lastIndex, 0);
-//        }
-//    }
-
-
-//    // To build a max heap from a subtree rooted at the given index
-//    private static void buildMaxHeap(int[] array, int heapSize, int rootIndex) {
-//        int largestIndex = rootIndex; // Initialize largest as root
-//        int leftChildIndex = 2 * rootIndex + 1; // left = 2*rootIndex + 1
-//        int rightChildIndex = 2 * rootIndex + 2; // right = 2*rootIndex + 2
-//
-//        // See if left child exists and is greater than root
-//        if (leftChildIndex < heapSize && array[leftChildIndex] > array[largestIndex]) {
-//            largestIndex = leftChildIndex;
-//        }
-//
-//        // See if right child exists and is greater than root
-//        if (rightChildIndex < heapSize && array[rightChildIndex] > array[largestIndex]) {
-//            largestIndex = rightChildIndex;
-//        }
-//
-//        // Change root if needed
-//        if (largestIndex != rootIndex) {
-//            swap(array, rootIndex, largestIndex);
-//
-//            // Recursively build max heap for the affected subtree
-//            buildMaxHeap(array, heapSize, largestIndex);
-//        }
-//    }
 
 }
