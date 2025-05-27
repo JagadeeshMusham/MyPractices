@@ -34,6 +34,8 @@ public class InsertionSort {
 			values[counter] = scanner.nextInt();
 		}
 
+		scanner.close(); // Closing scanner to prevent resource leaks
+
 		doInsertionSort(values);
 
 		System.out.println("The sorted array is: ");

@@ -33,12 +33,19 @@ public class BubbleSort {
 
 	private static void doSort(int[] a) {
 		for (int firstCounter = 0; firstCounter < a.length; firstCounter++) {
+			boolean bNotSwap = true;
 			for (int counter = 0; counter < a.length - 1 - firstCounter; counter++) {
 				if (a[counter] > a[counter + 1]) {
 					int temp = a[counter];
 					a[counter] = a[counter + 1];
 					a[counter + 1] = temp;
+
+					bNotSwap = false;
 				}
+			}
+
+			if (bNotSwap) {
+				break;
 			}
 		}
 	}
