@@ -6,47 +6,46 @@ import java.util.LinkedList;
 //This class represents a directed graph using adjacency list
 //representation
 public class DepthFirstTraversalGraph {
-	private int V; // No. of vertices
+	private int nNodes; // No. of vertices
 
 	// Array of lists for Adjacency List Representation
-	private LinkedList<Integer> adj[];
+	private LinkedList<Integer> adjList[];
 
 	// Constructor
-	DepthFirstTraversalGraph(int v) {
-		V = v;
-		adj = new LinkedList[v];
-		for (int i = 0; i < v; ++i)
-			adj[i] = new LinkedList();
+	DepthFirstTraversalGraph(int nNodes) {
+		this.nNodes = nNodes;
+		adjList = new LinkedList[nNodes];
+		for (int counter = 0; counter < nNodes; ++counter)
+			adjList[counter] = new LinkedList();
 	}
 
 	// Function to add an edge into the graph
-	void addEdge(int v, int w) {
-		adj[v].add(w); // Add w to v's list.
+	void addEdge(int node, int adjNode) {
+		adjList[node].add(adjNode);
 	}
-
 	// A function used by DFS
-	void DFSUtil(int v, boolean visited[]) {
+	void DFSUtil(int startingNode, boolean visited[]) {
 		// Mark the current node as visited and print it
-		visited[v] = true;
-		System.out.print(v + " ");
+		visited[startingNode] = true;
+		System.out.print(startingNode + " ");
 
 		// Recur for all the vertices adjacent to this vertex
-		Iterator<Integer> i = adj[v].listIterator();
-		while (i.hasNext()) {
-			int n = i.next();
-			if (!visited[n])
-				DFSUtil(n, visited);
+		Iterator<Integer> iterator = adjList[startingNode].listIterator();
+		while (iterator.hasNext()) {
+			int node = iterator.next();
+			if (!visited[node])
+				DFSUtil(node, visited);
 		}
 	}
 
 	// The function to do DFS traversal. It uses recursive DFSUtil()
-	void DFS(int v) {
+	void DFS(int startingNode) {
 		// Mark all the vertices as not visited(set as
 		// false by default in java)
-		boolean visited[] = new boolean[V];
+		boolean visited[] = new boolean[nNodes];
 
 		// Call the recursive helper function to print DFS traversal
-		DFSUtil(v, visited);
+		DFSUtil(startingNode, visited);
 	}
 
 	public static void main(String args[]) {
