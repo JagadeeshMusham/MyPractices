@@ -1,0 +1,1 @@
+C:\NewWorkArea\MyPractices\TypeScriptPractices\TestTypeScript\NodeConsoleApp1\obj\Debug\NodeConsoleApp1.esproj.CoreCompileInputs.cache
